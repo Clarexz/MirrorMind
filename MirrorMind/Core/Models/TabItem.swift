@@ -1,32 +1,18 @@
-//
-//  TabItem.swift
-//  MirrorMind
-//
-//  Created by Caleb Martinez Cavazos on 18/08/25.
-//
+// Core/Models/TabItem.swift
+import SwiftUI
 
-
-//
-//  TabItem.swift
-//  MirrorMind
-//
-//  Created by iOS Foundation Lead on 18/08/25.
-//
-
-import Foundation
-
-/// Representa cada tab del sistema de navegación principal
-enum TabItem: String, CaseIterable {
+enum TabItem: String, CaseIterable, Identifiable {
     case home = "home"
     case momentos = "momentos"
     case chat = "chat"
     case perfil = "perfil"
     
-    /// Título mostrado en la interfaz
+    var id: String { self.rawValue }
+    
     var title: String {
         switch self {
         case .home:
-            return "Home"
+            return "Inicio"
         case .momentos:
             return "Momentos"
         case .chat:
@@ -36,7 +22,6 @@ enum TabItem: String, CaseIterable {
         }
     }
     
-    /// Nombre del ícono del sistema SF Symbols
     var iconName: String {
         switch self {
         case .home:
@@ -47,6 +32,19 @@ enum TabItem: String, CaseIterable {
             return "message"
         case .perfil:
             return "person"
+        }
+    }
+    
+    var iconNameFilled: String {
+        switch self {
+        case .home:
+            return "house.fill"
+        case .momentos:
+            return "leaf.fill"
+        case .chat:
+            return "message.fill"
+        case .perfil:
+            return "person.fill"
         }
     }
 }
