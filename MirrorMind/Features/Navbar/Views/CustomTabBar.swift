@@ -45,7 +45,6 @@ struct CustomTabBar: View {
         Spacer()
         CustomTabBar(selectedTab: $selectedTab)
             .padding(.horizontal, 20)
-            .padding(.bottom, 20)
     }
     .background(Color.Primary.background)
 }
