@@ -5,11 +5,11 @@
 ![iOS Version](https://img.shields.io/badge/iOS-26.0+-blue.svg)
 ![Swift Version](https://img.shields.io/badge/Swift-5.0-orange.svg)
 ![SwiftUI](https://img.shields.io/badge/SwiftUI-Yes-green.svg)
-![Status](https://img.shields.io/badge/Status-Vista%20Home%20Completada-success.svg)
+![Status](https://img.shields.io/badge/Status-Sistema%20Emociones%20Completado-success.svg)
 
 **Aplicación iOS para la Identificación y Manejo de las Emociones con IA + IoT**
 
-*Proyecto desarrollado por estudiantes del TecNM Campus Reynosa para InnovaTecNM 2025*
+*Sistema de gestión emocional para estudiantes universitarios*
 
 </div>
 
@@ -67,14 +67,29 @@ MirrorMind es una aplicación iOS innovadora diseñada para ayudar a estudiantes
   - Integración completa con sistema de navegación
   - Solución arquitectural para navbar flotante y safe area
 
+#### Fase 3: Sistema de Emociones
+- **Duración**: 1 sesión
+- **Responsable**: Emotions System Lead
+- **Entregables completados**:
+  - Selector interactivo de emociones completamente funcional
+  - Selección única con feedback visual (checkmark)
+  - Contenido dinámico según emoción seleccionada
+  - HomeViewModel implementado con arquitectura MVVM
+  - Mensajes personalizados por cada emoción
+  - Ejercicios específicos que cambian según estado emocional
+  - Estados de selección persistentes durante la sesión
+  - Eliminación de bugs visuales (destello de botones)
+  - Animaciones suaves y naturales
+  - Sistema de deselección funcional
+
 ### Próximas Fases
 
-#### Fase 3: Selector de Emociones
-- **Responsable**: Emotions System Lead
-- **Objetivo**: Implementar interactividad completa del selector emocional
+#### Fase 4: Ejercicios y Sugerencias
+- **Responsable**: Exercise Content Lead
+- **Objetivo**: Implementar sistema completo de ejercicios dinámicos
 - **Estado**: Pendiente
 
-#### Fases 4-12: Desarrollo Progresivo
+#### Fases 5-12: Desarrollo Progresivo
 - Selector de emociones (Fase 3)
 - Sistema de ejercicios (Fase 4)
 - Widget smartband (Fase 5)
@@ -109,9 +124,11 @@ MirrorMind/
 │   ├── Common/
 │   │   └── Models/
 │   │       └── Emotion.swift           # Modelo de emociones
-│   ├── Home/                           # Completado - Fase 2
+│   ├── Home/                           # Completado - Fases 2-3
 │   │   ├── Views/
 │   │   │   └── HomeView.swift          # Vista principal dashboard
+│   │   ├── ViewModels/
+│   │   │   └── HomeViewModel.swift     # Lógica de emociones y contenido dinámico
 │   │   └── Screens/
 │   │       └── HomeScreen.swift        # Wrapper de navegación
 │   ├── Momentos/                       # Pendiente - Fase 8+
@@ -170,13 +187,15 @@ Color.Text.secondary     // #4A5568 - Subtítulos
 
 #### Vista Home Completa
 - **HomeView**: Dashboard principal con 5 tarjetas funcionales
-- **EmotionSelectorCardView**: Grid 3x2 de emociones con colores reales
-- **ExerciseSuggestionsCardView**: Scroll horizontal de ejercicios sugeridos
+- **HomeViewModel**: Lógica de estado emocional y contenido dinámico
+- **EmotionSelectorCardView**: Grid 3x2 de emociones completamente interactivo
+- **ExerciseSuggestionsCardView**: Scroll horizontal con ejercicios dinámicos por emoción
 - **SmartBandCardView**: Widget con estados de conexión visual
 - **WeeklySummaryCardView**: Gráfico de 7 días con resumen emocional
 - **OliviaTipsCardView**: Consejos de IA con estilo personalizado
 - **Saludo personalizado**: Avatar circular y mensaje contextual
 - **Layout responsivo**: Adaptación automática a diferentes pantallas
+- **Sistema emocional interactivo**: Selección única con feedback visual y contenido dinámico
 
 #### Modelos de Datos
 - **TabItem**: Enum con 4 tabs (home, momentos, chat, perfil)
@@ -193,17 +212,23 @@ Color.Text.secondary     // #4A5568 - Subtítulos
 - Tab bar personalizado con design system aplicado
 - Vistas temporales preparadas para desarrollo futuro
 
-### Vista Home Dashboard Funcional
-- Dashboard principal con 5 tarjetas informativas
+### Vista Home Dashboard Completamente Funcional
+- Dashboard principal con 5 tarjetas informativas completamente operativas
 - Saludo personalizado con avatar del usuario
-- Selector de emociones visual (grid 3x2) con colores específicos
-- Sistema de ejercicios con scroll horizontal
+- Selector de emociones completamente interactivo (grid 3x2)
+- Selección única de emociones con feedback visual (checkmark)
+- Contenido dinámico que cambia según emoción seleccionada
+- Mensajes personalizados específicos por cada estado emocional
+- Sistema de ejercicios con contenido que se actualiza por emoción
 - Widget SmartBand con estados visuales (Desconectado/Conectando/Conectado)
 - Gráfico semanal emocional con 7 días de datos
 - Tarjeta de consejos de Olivia IA con estilo diferenciado
 - Layout completamente responsivo
 - Integración perfecta con sistema de navegación
 - Safe area handling optimizado para navbar flotante
+- Arquitectura MVVM implementada con HomeViewModel
+- Estados de selección persistentes durante la sesión
+- Animaciones suaves y experiencia de usuario pulida
 
 ### Design System Robusto
 - Paleta de colores completa según especificaciones de diseño
@@ -240,49 +265,6 @@ open MirrorMind.xcodeproj
 - Target de deployment: iOS 26.0
 - Orientaciones soportadas: Portrait, Landscape
 - Configuraciones disponibles: Debug, Release
-
-## Equipo de Desarrollo
-
-### Información del Proyecto
-- **Institución**: Instituto Tecnológico de Reynosa, TecNM
-- **Objetivo**: Etapa Regional InnovaTecNM (Septiembre 2025)
-- **Categoría**: Industria Eléctrica y Electrónica
-- **Área**: Telecomunicaciones y Tecnologías de la Información
-
-### Integrantes del Equipo
-- **Bryan Caleb Martínez Cavazos** - Ing. en TIC (6° semestre)
-- **Jair Azael Solís Cervantes** - Ing. en TIC (6° semestre)
-- **Lisandro Guerrero Huesca** - Ing. en TIC (6° semestre)
-- **Ángeles Estefani Bautista García** - Ing. en Gestión Empresarial (4° semestre)
-
-### Asesores
-- **Dora Luz Quevedo Valenzuela** - dora.qv@reynosa.tecnm.mx
-- **José Guadalupe Cervantes León** - jose.cl@reynosa.tecnm.mx
-
-## Roadmap de Desarrollo
-
-### Etapa Regional (Septiembre 2025)
-**Objetivo**: Demo funcional con Home y Momentos completos
-
-#### Milestones Principales
-1. **Milestone 1** (Semana 4): Vista Home funcional con selector de emociones
-2. **Milestone 2** (Semana 8): Sistema completo Home + Momentos + SmartBand mock
-3. **Milestone 3** (Semana 12): App completa lista para demo regional
-
-#### Funcionalidades Target
-- Vista Home completa con selector de emociones
-- Vista Momentos con categorías y filtros
-- Sistema de favoritos funcional
-- Integración mock con smartband
-- Widget de resumen semanal
-- Tips de Olivia integrados
-
-### Etapa Nacional (Post-Regional)
-- Vista Chat con Olivia IA completa
-- Vista Perfil con configuraciones
-- Integración real con hardware smartband
-- Sistema de reconocimiento facial
-- Análisis avanzado de patrones emocionales
 
 ## Documentación Técnica
 
@@ -333,28 +315,25 @@ private var _selectedEmotion: Emotion?
 
 ### Funcionalidades Operativas
 - Navegación completa entre 4 vistas
-- Vista Home completamente funcional con 5 tarjetas
-- Selector de emociones visual implementado
-- Sistema de ejercicios con placeholders
+- Vista Home completamente funcional con 5 tarjetas interactivas
+- Selector de emociones completamente operativo con selección única
+- Sistema de contenido dinámico según estado emocional
+- Mensajes personalizados que cambian por emoción
+- Ejercicios específicos que se actualizan automáticamente
 - Widget SmartBand con estados visuales
 - Gráfico semanal con datos mock
 - Sistema de colores aplicado consistentemente
-- Arquitectura MVVM establecida
+- Arquitectura MVVM completamente implementada
 - Design system robusto implementado
 - Safe area y layout responsive optimizados
+- HomeViewModel con lógica de estado emocional
+- Experiencia de usuario pulida sin bugs visuales
 
 ### Próximos Pasos
-- **Inmediato**: Implementación interactiva del selector de emociones (Fase 3)
-- **Corto plazo**: Contenido dinámico de ejercicios y funcionalidad SmartBand
+- **Inmediato**: Implementación de contenido real de ejercicios (Fase 4)
+- **Corto plazo**: Funcionalidad completa SmartBand y navegación a ejercicios
 - **Mediano plazo**: Vista Momentos completa y analytics emocionales
-- **Objetivo**: Demo completo para etapa regional en septiembre 2025
 
 ---
 
-## Información de Contacto
-
-**Proyecto MirrorMind**  
-Instituto Tecnológico de Reynosa, TecNM  
-InnovaTecNM 2025 - Región 2  
-
-*"Transformando la gestión emocional estudiantil a través de la tecnología"*
+*MirrorMind - Sistema de gestión emocional estudiantil a través de la tecnología*

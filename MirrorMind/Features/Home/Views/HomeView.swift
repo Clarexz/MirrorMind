@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct HomeView: View {
+    @StateObject private var viewModel = HomeViewModel()
+    
     var body: some View {
         ZStack {
             // Fondo que llega hasta los bordes
@@ -49,8 +51,8 @@ struct HomeView: View {
                     LazyVStack(spacing: DesignConstants.Spacing.sectionMargin) {
                         // Contenido principal
                         LazyVStack(spacing: DesignConstants.Spacing.sectionMargin) {
-                            EmotionSelectorCardView()
-                            ExerciseSuggestionsCardView()
+                            EmotionSelectorCardView(viewModel: viewModel)
+                            ExerciseSuggestionsCardView(viewModel: viewModel)
                             SmartBandCardView()
                             WeeklySummaryCardView()
                             OliviaTipsCardView()
@@ -65,39 +67,47 @@ struct HomeView: View {
     }
 }
 
-// MARK: - Tarjetas Principales
+// MARK: - Emotion Selector Card View Interactiva
 struct EmotionSelectorCardView: View {
+    @ObservedObject var viewModel: HomeViewModel
+    
     var body: some View {
         VStack(alignment: .center, spacing: DesignConstants.Spacing.cardPadding) {
             Text("¿Cómo te sientes en este momento?")
-                .font(.system(size: DesignConstants.Typography.heading2Size, weight: DesignConstants.Typography.boldWeight))
+                .font(.system(size: DesignConstants.Typography.heading2Size, weight: DesignConstants.Typography.mediumWeight))
                 .foregroundColor(Color.Text.primary)
+                .multilineTextAlignment(.center)
             
-            // Grid 3x2 de emociones con mejor espaciado
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: 3), spacing: 12) {
-                
-                ForEach(Emotion.emotions, id: \.id) { emotion in
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: DesignConstants.Spacing.gridGap), count: 3), spacing: DesignConstants.Spacing.gridGap) {
+                ForEach(Emotion.emotions) { emotion in
                     Button(action: {
-                        // Acción de selección
+                        viewModel.selectEmotion(emotion)
                     }) {
-                        Text(emotion.displayName)
-                            .font(.system(size: 14, weight: .semibold))
-                            .foregroundColor(Color.black.opacity(0.8))
-                            .multilineTextAlignment(.center)
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.8)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .frame(height: 90)
-                            .background(emotion.color)
-                            .cornerRadius(DesignConstants.Radius.emotion)
+                        ZStack {
+                            RoundedRectangle(cornerRadius: DesignConstants.Radius.emotion)
+                                .fill(emotion.color)
+                                .frame(height: 90)
+                            
+                            VStack(spacing: 4) {
+                                if viewModel.isEmotionSelected(emotion) {
+                                    Image(systemName: "checkmark")
+                                        .font(.system(size: 16, weight: .bold))
+                                        .foregroundColor(.white)
+                                }
+                                
+                                Text(emotion.displayName)
+                                    .font(.system(size: DesignConstants.Typography.heading3Size, weight: DesignConstants.Typography.mediumWeight))
+                                    .foregroundColor(.white)
+                            }
+                        }
                     }
-                    .buttonStyle(PlainButtonStyle())
+                    .buttonStyle(NoHighlightButtonStyle())
                 }
             }
-            .frame(height: 200) // 2 filas * 50 altura + 12 spacing
+            .frame(height: 200)
         }
         .padding(DesignConstants.Spacing.cardPadding)
-        .background(Color.white)
+        .background(Color.Primary.background)
         .cornerRadius(DesignConstants.Radius.card)
         .shadow(
             color: DesignConstants.Shadow.card,
@@ -108,17 +118,26 @@ struct EmotionSelectorCardView: View {
     }
 }
 
+// MARK: - Custom Button Style
+struct NoHighlightButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+    }
+}
+
 struct ExerciseSuggestionsCardView: View {
+    @ObservedObject var viewModel: HomeViewModel
+    
     var body: some View {
         VStack(alignment: .center, spacing: DesignConstants.Spacing.cardPadding) {
-            Text("Qué podemos hacer el día de hoy...")
+            Text(viewModel.dynamicMessage)
                 .font(.system(size: DesignConstants.Typography.heading2Size, weight: DesignConstants.Typography.boldWeight))
                 .foregroundColor(Color.Text.primary)
             
             // Scroll horizontal de ejercicios placeholder
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: DesignConstants.Spacing.gridGap) {
-                    ForEach(1...4, id: \.self) { index in
+                    ForEach(Array(viewModel.suggestedExercises.enumerated()), id: \.offset) { index, exerciseName in
                         VStack(spacing: 8) {
                             // Placeholder para thumbnail de video
                             RoundedRectangle(cornerRadius: DesignConstants.Radius.button)
@@ -130,7 +149,7 @@ struct ExerciseSuggestionsCardView: View {
                                         .font(.system(size: 20))
                                 )
                             
-                            Text("Ejercicio \(index)")
+                            Text(exerciseName)
                                 .font(.system(size: DesignConstants.Typography.heading4Size, weight: DesignConstants.Typography.mediumWeight))
                                 .foregroundColor(Color.Text.secondary)
                                 .lineLimit(1)
