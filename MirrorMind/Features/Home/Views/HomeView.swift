@@ -55,7 +55,7 @@ struct HomeView: View {
                             ExerciseSuggestionsCardView(viewModel: viewModel)
                             SmartBandCardView()
                             WeeklyChart()
-                            OliviaTipsCardView()
+                            OliviaTipsCardView(homeViewModel: viewModel)
                         }
                         .padding(.horizontal, DesignConstants.Spacing.containerPadding)
                         .padding(.top, 20)
@@ -279,47 +279,235 @@ struct SmartBandCardView: View {
     }
 }
 
+// MARK: - OliviaTipsCardView Dinámico
+// Reemplazar el componente actual en HomeView.swift
+
 struct OliviaTipsCardView: View {
+    @ObservedObject var homeViewModel: HomeViewModel
+    @StateObject private var weeklyDataViewModel = WeeklyDataViewModel()
+    @State private var currentTip: OliviaTip?
+    @State private var isRefreshing = false
+    
     var body: some View {
         VStack(alignment: .leading, spacing: DesignConstants.Spacing.cardPadding) {
-            Text("Olivia sugiere...")
-                .font(.system(size: DesignConstants.Typography.heading2Size, weight: DesignConstants.Typography.boldWeight))
-                .foregroundColor(Color.Text.primary)
-            
-            Text("¿Has probado salir a caminar? El aire fresco puede ayudar a mantener tu bienestar emocional.")
-                .font(.system(size: DesignConstants.Typography.heading3Size, weight: DesignConstants.Typography.regularWeight))
-                .foregroundColor(Color.Text.secondary)
-                .multilineTextAlignment(.leading)
-            
-            Button("Quiero saber más") {
-                // Acción del botón
+            // Header con avatar de Olivia
+            HStack(spacing: 12) {
+                // Avatar de Olivia
+                Circle()
+                    .fill(
+                        LinearGradient(
+                            colors: [Color.Primary.brand.opacity(0.8), Color.Primary.brand],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                    .frame(width: 32, height: 32)
+                    .overlay(
+                        Image(systemName: "brain.head.profile")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.white)
+                    )
+                
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Olivia sugiere...")
+                        .font(.system(size: DesignConstants.Typography.heading3Size, weight: DesignConstants.Typography.boldWeight))
+                        .foregroundColor(Color.Text.primary)
+                    
+                    if let emotion = homeViewModel.selectedEmotion {
+                        Text("Para tu estado \(emotion.displayName.lowercased())")
+                            .font(.system(size: DesignConstants.Typography.heading4Size, weight: DesignConstants.Typography.mediumWeight))
+                            .foregroundColor(Color.Text.secondary)
+                    } else {
+                        Text("Consejo personalizado")
+                            .font(.system(size: DesignConstants.Typography.heading4Size, weight: DesignConstants.Typography.mediumWeight))
+                            .foregroundColor(Color.Text.secondary)
+                    }
+                }
+                
+                Spacer()
+                
+                // Botón de refresh
+                Button(action: refreshTip) {
+                    Image(systemName: "arrow.clockwise")
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(Color.Primary.brand)
+                        .rotationEffect(.degrees(isRefreshing ? 360 : 0))
+                        .animation(.easeInOut(duration: 0.5), value: isRefreshing)
+                }
+                .buttonStyle(PlainButtonStyle())
             }
-            .font(.system(size: DesignConstants.Typography.heading4Size, weight: DesignConstants.Typography.boldWeight))
-            .foregroundColor(.white)
-            .padding(.horizontal, 16)
-            .padding(.vertical, 8)
-            .background(Color.Primary.brand)
-            .cornerRadius(DesignConstants.Radius.button)
+            
+            // Contenido del tip
+            if let tip = currentTip {
+                VStack(alignment: .leading, spacing: 12) {
+                    Text(tip.title)
+                        .font(.system(size: DesignConstants.Typography.heading4Size, weight: DesignConstants.Typography.boldWeight))
+                        .foregroundColor(Color.Text.primary)
+                        .multilineTextAlignment(.leading)
+                    
+                    Text(tip.content)
+                        .font(.system(size: DesignConstants.Typography.heading3Size, weight: DesignConstants.Typography.mediumWeight))
+                        .foregroundColor(Color.Text.secondary)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(nil)
+                    
+                    // Categoría del tip
+                    HStack {
+                        Image(systemName: categoryIcon(for: tip.category))
+                            .font(.system(size: 12, weight: .medium))
+                            .foregroundColor(Color.Primary.brand)
+                        
+                        Text(tip.category.displayName)
+                            .font(.system(size: DesignConstants.Typography.heading4Size, weight: DesignConstants.Typography.mediumWeight))
+                            .foregroundColor(Color.Primary.brand)
+                        
+                        Spacer()
+                        
+                        // Indicador de contexto emocional
+                        if let emotion = homeViewModel.selectedEmotion,
+                           tip.targetEmotion?.lowercased() == emotion.displayName.lowercased() {
+                            HStack(spacing: 4) {
+                                Circle()
+                                    .fill(emotionColor(for: emotion))
+                                    .frame(width: 8, height: 8)
+                                
+                                Text("Personalizado")
+                                    .font(.system(size: DesignConstants.Typography.heading4Size, weight: DesignConstants.Typography.mediumWeight))
+                                    .foregroundColor(Color.Text.secondary)
+                            }
+                        }
+                    }
+                }
+            } else {
+                // Estado de carga
+                VStack(spacing: 8) {
+                    ProgressView()
+                        .scaleEffect(0.8)
+                        .tint(Color.Primary.brand)
+                    
+                    Text("Olivia está pensando...")
+                        .font(.system(size: DesignConstants.Typography.heading3Size, weight: DesignConstants.Typography.mediumWeight))
+                        .foregroundColor(Color.Text.secondary)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 20)
+            }
+            
+            // Botón de acción
+            Button(action: {
+                // TODO: Navegación hacia Chat completo (Fase futura)
+                print("Navegando a Chat con Olivia...")
+            }) {
+                HStack {
+                    Text("Quiero saber más")
+                        .font(.system(size: DesignConstants.Typography.heading3Size, weight: DesignConstants.Typography.boldWeight))
+                        .foregroundColor(.white)
+                    
+                    Image(systemName: "arrow.right")
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(.white)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 12)
+                .background(Color.Primary.brand)
+                .cornerRadius(DesignConstants.Radius.button)
+            }
+            .buttonStyle(PlainButtonStyle())
         }
         .padding(DesignConstants.Spacing.cardPadding)
         .background(
-            LinearGradient(
-                gradient: Gradient(colors: [Color.white, Color.gray.opacity(0.05)]),
-                startPoint: .top,
-                endPoint: .bottom
-            )
-        )
-        .cornerRadius(DesignConstants.Radius.card)
-        .overlay(
             RoundedRectangle(cornerRadius: DesignConstants.Radius.card)
-                .stroke(Color.gray.opacity(0.2), lineWidth: 1)
+                .fill(.white)
+                .overlay(
+                    RoundedRectangle(cornerRadius: DesignConstants.Radius.card)
+                        .stroke(
+                            LinearGradient(
+                                colors: [Color.Primary.brand.opacity(0.2), Color.Primary.brand.opacity(0.1)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
+                            lineWidth: 1
+                        )
+                )
+                .shadow(
+                    color: Color.Primary.brand.opacity(0.1),
+                    radius: DesignConstants.Shadow.cardRadius,
+                    x: DesignConstants.Shadow.cardOffset.width,
+                    y: DesignConstants.Shadow.cardOffset.height
+                )
         )
-        .shadow(
-            color: DesignConstants.Shadow.card,
-            radius: DesignConstants.Shadow.cardRadius,
-            x: DesignConstants.Shadow.cardOffset.width,
-            y: DesignConstants.Shadow.cardOffset.height
-        )
+        .onAppear {
+            loadAppropiateTip()
+        }
+        .onChange(of: homeViewModel.selectedEmotion) { _, _ in
+            loadAppropiateTip()
+        }
+    }
+    
+    // MARK: - Private Methods
+    
+    /// Carga un tip apropiado según el contexto emocional actual
+    private func loadAppropiateTip() {
+        // Determinar contexto emocional
+        let selectedEmotionName = homeViewModel.selectedEmotion?.displayName
+        
+        // Por ahora solo usar emoción seleccionada, análisis semanal en versión futura
+        let targetEmotion = selectedEmotionName
+        
+        // Obtener tip apropiado
+        currentTip = OliviaTipsDatabase.shared.getRandomTip(for: targetEmotion)
+    }
+    
+    /// Refresca el tip actual con animación
+    private func refreshTip() {
+        isRefreshing = true
+        
+        withAnimation(.easeInOut(duration: 0.3)) {
+            currentTip = nil
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            loadAppropiateTip()
+            isRefreshing = false
+        }
+    }
+    
+    /// Iconos para cada categoría de tip
+    private func categoryIcon(for category: OliviaTip.TipCategory) -> String {
+        switch category {
+        case .breathing:
+            return "lungs"
+        case .mindfulness:
+            return "brain.head.profile"
+        case .movement:
+            return "figure.walk"
+        case .social:
+            return "person.2"
+        case .selfCare:
+            return "heart"
+        case .growth:
+            return "arrow.up.right"
+        }
+    }
+    
+    /// Color de la emoción seleccionada
+    private func emotionColor(for emotion: Emotion) -> Color {
+        switch emotion.displayName.lowercased() {
+        case "feliz":
+            return Color.Emotions.happy
+        case "triste":
+            return Color.Emotions.sad
+        case "enojado":
+            return Color.Emotions.angry
+        case "ansioso":
+            return Color.Emotions.anxious
+        case "nervioso":
+            return Color.Emotions.nervous
+        case "calmado":
+            return Color.Emotions.calm
+        default:
+            return Color.Primary.brand
+        }
     }
 }
 
