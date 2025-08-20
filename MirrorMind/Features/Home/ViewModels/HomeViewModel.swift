@@ -92,20 +92,22 @@ class HomeViewModel: ObservableObject {
     }
     
     /// Ejercicios sugeridos según la emoción seleccionada
-        var suggestedExercises: [Exercise] {
-            guard let emotion = selectedEmotion else {
-                // Sin emoción seleccionada: mostrar ejercicios generales
-                return Array(allExercises.filter { $0.emotions.isEmpty }.prefix(4))
-            }
-            
-            // Con emoción seleccionada: filtrar ejercicios para esa emoción
-            let emotionExercises = allExercises.filter { exercise in
-                exercise.emotions.contains { $0.lowercased() == emotion.name.lowercased() }
-            }
-            
-            // Tomar los primeros 4 ejercicios de la emoción
-            return Array(emotionExercises.prefix(4))
+    var suggestedExercises: [Exercise] {
+        guard let emotion = selectedEmotion else {
+            // Sin emoción seleccionada: mostrar ejercicios generales
+            return Array(allExercises.filter { $0.emotions.isEmpty }.prefix(4))
         }
+        
+        // Con emoción seleccionada: filtrar ejercicios para esa emoción
+        let emotionExercises = allExercises.filter { exercise in
+            exercise.emotions.contains { exerciseEmotion in
+                exerciseEmotion.lowercased() == emotion.displayName.lowercased()
+            }
+        }
+        
+        // Tomar los primeros 4 ejercicios de la emoción
+        return Array(emotionExercises.prefix(4))
+    }
     
     /// Verifica si una emoción específica está seleccionada
     func isEmotionSelected(_ emotion: Emotion) -> Bool {

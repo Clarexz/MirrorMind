@@ -212,7 +212,7 @@ struct WeeklySummaryCardView: View {
             
             // Gráfico placeholder con días de la semana
             HStack(spacing: 28) {
-                ForEach(["L", "M", "M", "J", "V", "S", "D"], id: \.self) { day in
+                ForEach(Array(["L", "M", "M", "J", "V", "S", "D"].enumerated()), id: \.offset) { index, day in
                     VStack(spacing: 4) {
                         Circle()
                             .fill([Color.Emotions.happy, Color.Emotions.calm, Color.Emotions.happy, Color.Emotions.anxious, Color.Emotions.happy, Color.Emotions.calm, Color.Emotions.happy].randomElement() ?? Color.gray)

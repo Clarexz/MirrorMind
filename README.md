@@ -5,7 +5,7 @@
 ![iOS Version](https://img.shields.io/badge/iOS-26.0+-blue.svg)
 ![Swift Version](https://img.shields.io/badge/Swift-5.0-orange.svg)
 ![SwiftUI](https://img.shields.io/badge/SwiftUI-Yes-green.svg)
-![Status](https://img.shields.io/badge/Status-Sistema%20Emociones%20Completado-success.svg)
+![Status](https://img.shields.io/badge/Status-Sistema%20Ejercicios%20Completado-success.svg)
 
 **Aplicación iOS para la Identificación y Manejo de las Emociones con IA + IoT**
 
@@ -82,14 +82,27 @@ MirrorMind es una aplicación iOS innovadora diseñada para ayudar a estudiantes
   - Animaciones suaves y naturales
   - Sistema de deselección funcional
 
+#### Fase 4: Ejercicios y Sugerencias
+- **Duración**: 1 sesión
+- **Responsable**: Exercise Content Lead
+- **Entregables completados**:
+  - Tarjetas de ejercicios reales con diseño visual completo
+  - Modelo Exercise completo con 28 ejercicios mock organizados
+  - Contenido dinámico funcional por emoción seleccionada
+  - Scroll horizontal fluido sin errores de consola
+  - ExerciseCard component con thumbnail y duración
+  - Integración perfecta con sistema de emociones
+  - 5 categorías de ejercicios con colores del design system
+  - Sistema preparado para navegación a reproductor
+
 ### Próximas Fases
 
-#### Fase 4: Ejercicios y Sugerencias
-- **Responsable**: Exercise Content Lead
-- **Objetivo**: Implementar sistema completo de ejercicios dinámicos
+#### Fase 5: Widget SmartBand
+- **Responsable**: SmartBand Integration Lead
+- **Objetivo**: Implementar funcionalidad completa del widget SmartBand
 - **Estado**: Pendiente
 
-#### Fases 5-12: Desarrollo Progresivo
+#### Fases 6-12: Desarrollo Progresivo
 - Selector de emociones (Fase 3)
 - Sistema de ejercicios (Fase 4)
 - Widget smartband (Fase 5)
@@ -114,21 +127,24 @@ MirrorMind es una aplicación iOS innovadora diseñada para ayudar a estudiantes
 MirrorMind/
 ├── Core/
 │   ├── Models/
-│   │   └── TabItem.swift                # Modelo de navegación
+│   │   └── TabItem.swift                # Modelo de navegación ✅
 │   └── Extensions/
-│       └── Color+Extensions.swift       # Sistema de colores
+│       └── Color+Extensions.swift       # Sistema de colores ✅
 ├── Config/
-│   ├── AppConfig.swift                  # Configuraciones generales
-│   └── DesignConstants.swift           # Constantes de diseño
+│   ├── AppConfig.swift                  # Configuraciones generales ✅
+│   └── DesignConstants.swift           # Constantes de diseño ✅
 ├── Features/
 │   ├── Common/
-│   │   └── Models/
-│   │       └── Emotion.swift           # Modelo de emociones
-│   ├── Home/                           # Completado - Fases 2-3
+│   │   ├── Models/
+│   │   │   ├── Emotion.swift           # Modelo de emociones
+│   │   │   └── Exercise.swift          # Modelo completo de ejercicios
+│   │   └── Views/
+│   │       └── ExerciseCard.swift      # Componente de tarjeta de ejercicio
+│   ├── Home/                           # Completado - Fases 2-4
 │   │   ├── Views/
 │   │   │   └── HomeView.swift          # Vista principal dashboard
 │   │   ├── ViewModels/
-│   │   │   └── HomeViewModel.swift     # Lógica de emociones y contenido dinámico
+│   │   │   └── HomeViewModel.swift     # Lógica de emociones y ejercicios dinámicos
 │   │   └── Screens/
 │   │       └── HomeScreen.swift        # Wrapper de navegación
 │   ├── Momentos/                       # Pendiente - Fase 8+
@@ -140,11 +156,11 @@ MirrorMind/
 │           ├── CustomTabBar.swift      # Tab bar personalizado
 │           └── TabBarButton.swift      # Botones individuales
 ├── Resources/Assets.xcassets/
-│   └── Colors/                         # Sistema completo
+│   └── Colors/                         # Sistema completo ✅
 │       ├── Emociones/                  # 6 colores emocionales
 │       ├── Principales/                # Colores brand
 │       └── Texto/                      # Jerarquía de textos
-└── MirrorMindApp.swift                 # Punto de entrada
+└── MirrorMindApp.swift                 # Punto de entrada ✅
 ```
 
 ## Design System
@@ -187,19 +203,23 @@ Color.Text.secondary     // #4A5568 - Subtítulos
 
 #### Vista Home Completa
 - **HomeView**: Dashboard principal con 5 tarjetas funcionales
-- **HomeViewModel**: Lógica de estado emocional y contenido dinámico
+- **HomeViewModel**: Lógica de estado emocional y ejercicios dinámicos con 28 ejercicios mock
 - **EmotionSelectorCardView**: Grid 3x2 de emociones completamente interactivo
 - **ExerciseSuggestionsCardView**: Scroll horizontal con ejercicios dinámicos por emoción
+- **ExerciseCard**: Componente de tarjeta con thumbnail, duración y colores por categoría
 - **SmartBandCardView**: Widget con estados de conexión visual
 - **WeeklySummaryCardView**: Gráfico de 7 días con resumen emocional
 - **OliviaTipsCardView**: Consejos de IA con estilo personalizado
 - **Saludo personalizado**: Avatar circular y mensaje contextual
 - **Layout responsivo**: Adaptación automática a diferentes pantallas
 - **Sistema emocional interactivo**: Selección única con feedback visual y contenido dinámico
+- **Sistema de ejercicios dinámico**: 28 ejercicios organizados por emociones y categorías
 
 #### Modelos de Datos
 - **TabItem**: Enum con 4 tabs (home, momentos, chat, perfil)
 - **Emotion**: Struct con 6 emociones predefinidas
+- **Exercise**: Modelo completo con 28 ejercicios organizados por emociones y categorías
+- **ExerciseCategory**: Enum con 5 categorías (respirar, meditar, moverte, reflexionar, crecer)
 - **AppConfig**: Configuraciones centralizadas
 - **DesignConstants**: Constantes de espaciado, colores y animaciones
 
@@ -219,14 +239,18 @@ Color.Text.secondary     // #4A5568 - Subtítulos
 - Selección única de emociones con feedback visual (checkmark)
 - Contenido dinámico que cambia según emoción seleccionada
 - Mensajes personalizados específicos por cada estado emocional
-- Sistema de ejercicios con contenido que se actualiza por emoción
+- Sistema de ejercicios dinámico con 28 ejercicios organizados por emociones
+- Tarjetas de ejercicios reales con thumbnails, duración y colores por categoría
+- 5 categorías de ejercicios: respirar, meditar, moverte, reflexionar, crecer
+- Filtrado automático de ejercicios según emoción seleccionada
+- Scroll horizontal fluido sin errores de consola
 - Widget SmartBand con estados visuales (Desconectado/Conectando/Conectado)
 - Gráfico semanal emocional con 7 días de datos
 - Tarjeta de consejos de Olivia IA con estilo diferenciado
 - Layout completamente responsivo
 - Integración perfecta con sistema de navegación
 - Safe area handling optimizado para navbar flotante
-- Arquitectura MVVM implementada con HomeViewModel
+- Arquitectura MVVM implementada con HomeViewModel expandido
 - Estados de selección persistentes durante la sesión
 - Animaciones suaves y experiencia de usuario pulida
 
@@ -236,6 +260,35 @@ Color.Text.secondary     // #4A5568 - Subtítulos
 - Constantes de diseño para espaciado, tipografía y animaciones
 - Componentes reutilizables listos para expansión
 - Aplicación consistente en todas las vistas implementadas
+
+## Instalación y Configuración
+
+### Requisitos
+- macOS 26+ 
+- Xcode 15+
+- iOS 26.0+ (simulador o dispositivo)
+
+### Pasos de Instalación
+
+1. **Clonar el repositorio**
+```bash
+git clone [URL_DEL_REPOSITORIO]
+cd MirrorMind
+```
+
+2. **Abrir en Xcode**
+```bash
+open MirrorMind.xcodeproj
+```
+
+3. **Compilar y ejecutar**
+- Seleccionar simulador iOS 26.0+
+- Presionar ⌘R para compilar y ejecutar
+
+### Configuración del Proyecto
+- Target de deployment: iOS 26.0
+- Orientaciones soportadas: Portrait, Landscape
+- Configuraciones disponibles: Debug, Release
 
 ## Instalación y Configuración
 
@@ -319,20 +372,24 @@ private var _selectedEmotion: Emotion?
 - Selector de emociones completamente operativo con selección única
 - Sistema de contenido dinámico según estado emocional
 - Mensajes personalizados que cambian por emoción
-- Ejercicios específicos que se actualizan automáticamente
+- Sistema de ejercicios dinámico con 28 ejercicios organizados
+- Tarjetas de ejercicios reales con thumbnails y duración
+- Filtrado automático de ejercicios por emoción seleccionada
+- 5 categorías de ejercicios con colores específicos del design system
+- Scroll horizontal fluido sin errores de consola
 - Widget SmartBand con estados visuales
 - Gráfico semanal con datos mock
 - Sistema de colores aplicado consistentemente
 - Arquitectura MVVM completamente implementada
 - Design system robusto implementado
 - Safe area y layout responsive optimizados
-- HomeViewModel con lógica de estado emocional
+- HomeViewModel con lógica completa de emociones y ejercicios
 - Experiencia de usuario pulida sin bugs visuales
 
 ### Próximos Pasos
-- **Inmediato**: Implementación de contenido real de ejercicios (Fase 4)
-- **Corto plazo**: Funcionalidad completa SmartBand y navegación a ejercicios
-- **Mediano plazo**: Vista Momentos completa y analytics emocionales
+- **Inmediato**: Implementación de funcionalidad completa SmartBand (Fase 5)
+- **Corto plazo**: Navegación a reproductor de ejercicios y analytics emocionales
+- **Mediano plazo**: Vista Momentos completa con categorías y filtros
 
 ---
 

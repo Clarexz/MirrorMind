@@ -5,14 +5,6 @@
 //  Created by Caleb Martinez Cavazos on 20/08/25.
 //
 
-
-//
-//  ExerciseCard.swift
-//  MirrorMind
-//
-//  Created by Exercise Content Lead on 20/08/25.
-//
-
 import SwiftUI
 
 struct ExerciseCard: View {
@@ -41,40 +33,13 @@ struct ExerciseCard: View {
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
                     .frame(width: 100)
+                
+                // Duración del ejercicio
+                Text(exercise.formattedDuration)
+                    .font(.system(size: 10, weight: DesignConstants.Typography.regularWeight))
+                    .foregroundColor(Color.Text.secondary)
             }
         }
         .buttonStyle(PlainButtonStyle())
     }
-}
-
-#Preview {
-    HStack(spacing: 16) {
-        ExerciseCard(
-            exercise: Exercise(
-                name: "Respiración 4-7-8",
-                description: "Técnica calmante para reducir ansiedad",
-                duration: 180, // 3 minutos
-                category: .breathing,
-                thumbnail: "breathing_preview",
-                emotions: ["ansioso", "nervioso"],
-                isFavorite: false
-            ),
-            action: {}
-        )
-        
-        ExerciseCard(
-            exercise: Exercise(
-                name: "Meditación Mindfulness",
-                description: "Ejercicio de atención plena",
-                duration: 600, // 10 minutos
-                category: .meditation,
-                thumbnail: "meditation_preview",
-                emotions: ["calmado", "feliz"],
-                isFavorite: true
-            ),
-            action: {}
-        )
-    }
-    .padding()
-    .background(Color.Primary.background)
 }
