@@ -134,27 +134,14 @@ struct ExerciseSuggestionsCardView: View {
                 .font(.system(size: DesignConstants.Typography.heading2Size, weight: DesignConstants.Typography.boldWeight))
                 .foregroundColor(Color.Text.primary)
             
-            // Scroll horizontal de ejercicios placeholder
+            // Scroll horizontal de ejercicios con ExerciseCard
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: DesignConstants.Spacing.gridGap) {
-                    ForEach(Array(viewModel.suggestedExercises.enumerated()), id: \.offset) { index, exerciseName in
-                        VStack(spacing: 8) {
-                            // Placeholder para thumbnail de video
-                            RoundedRectangle(cornerRadius: DesignConstants.Radius.button)
-                                .fill(Color.red.opacity(0.8))
-                                .frame(width: 100, height: 100)
-                                .overlay(
-                                    Image(systemName: "play.fill")
-                                        .foregroundColor(.white)
-                                        .font(.system(size: 20))
-                                )
-                            
-                            Text(exerciseName)
-                                .font(.system(size: DesignConstants.Typography.heading4Size, weight: DesignConstants.Typography.mediumWeight))
-                                .foregroundColor(Color.Text.secondary)
-                                .lineLimit(1)
+                    ForEach(viewModel.suggestedExercises) { exercise in
+                        ExerciseCard(exercise: exercise) {
+                            // TODO: Navegación a reproductor de ejercicio
+                            print("Tapped exercise: \(exercise.name)")
                         }
-                        .frame(width: 100)
                     }
                 }
                 .padding(.horizontal, 4)
