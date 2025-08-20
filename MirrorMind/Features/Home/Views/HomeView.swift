@@ -54,7 +54,7 @@ struct HomeView: View {
                             EmotionSelectorCardView(viewModel: viewModel)
                             ExerciseSuggestionsCardView(viewModel: viewModel)
                             SmartBandCardView()
-                            WeeklySummaryCardView()
+                            WeeklyChart()
                             OliviaTipsCardView()
                         }
                         .padding(.horizontal, DesignConstants.Spacing.containerPadding)
@@ -276,45 +276,6 @@ struct SmartBandCardView: View {
             }
         }
         .padding(.vertical, 8)
-    }
-}
-
-struct WeeklySummaryCardView: View {
-    var body: some View {
-        VStack(alignment: .leading, spacing: DesignConstants.Spacing.cardPadding) {
-            Text("Tu semana emocional")
-                .font(.system(size: DesignConstants.Typography.heading2Size, weight: DesignConstants.Typography.boldWeight))
-                .foregroundColor(Color.Text.primary)
-            
-            // Gráfico placeholder con días de la semana
-            HStack(spacing: 28) {
-                ForEach(Array(["L", "M", "M", "J", "V", "S", "D"].enumerated()), id: \.offset) { index, day in
-                    VStack(spacing: 4) {
-                        Circle()
-                            .fill([Color.Emotions.happy, Color.Emotions.calm, Color.Emotions.happy, Color.Emotions.anxious, Color.Emotions.happy, Color.Emotions.calm, Color.Emotions.happy].randomElement() ?? Color.gray)
-                            .frame(width: 20, height: 20)
-                        
-                        Text(day)
-                            .font(.system(size: 10, weight: .medium))
-                            .foregroundColor(Color.Text.secondary)
-                    }
-                }
-            }
-            .frame(maxWidth: .infinity)
-            
-            Text("Has estado mayormente feliz esta semana")
-                .font(.system(size: DesignConstants.Typography.heading4Size, weight: DesignConstants.Typography.mediumWeight))
-                .foregroundColor(Color.Text.secondary)
-        }
-        .padding(DesignConstants.Spacing.cardPadding)
-        .background(Color.white)
-        .cornerRadius(DesignConstants.Radius.card)
-        .shadow(
-            color: DesignConstants.Shadow.card,
-            radius: DesignConstants.Shadow.cardRadius,
-            x: DesignConstants.Shadow.cardOffset.width,
-            y: DesignConstants.Shadow.cardOffset.height
-        )
     }
 }
 

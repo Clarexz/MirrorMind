@@ -39,7 +39,7 @@ struct CustomTabBar: View {
 }
 
 #Preview {
-    @State var selectedTab: TabItem = .home
+    @Previewable @State var selectedTab: TabItem = .home
     
     return VStack {
         Spacer()

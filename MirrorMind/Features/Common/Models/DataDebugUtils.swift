@@ -43,8 +43,7 @@ class DataDebugUtils {
         
         do {
             let readings = try context.fetch(request)
-            if let reading = readings.first,
-               let timestamp = reading.timestamp {
+            if let reading = readings.first {
                 return LiveBiometricData(
                     temperature: reading.temperature,
                     heartRate: Int(reading.heartRate)

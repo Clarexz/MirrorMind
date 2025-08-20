@@ -5,7 +5,7 @@
 ![iOS Version](https://img.shields.io/badge/iOS-26.0+-blue.svg)
 ![Swift Version](https://img.shields.io/badge/Swift-5.0-orange.svg)
 ![SwiftUI](https://img.shields.io/badge/SwiftUI-Yes-green.svg)
-![Status](https://img.shields.io/badge/Status-SmartBand%20Integration%20Completada-success.svg)
+![Status](https://img.shields.io/badge/Status-Analytics%20Dashboard%20Completado-success.svg)
 
 **Aplicación iOS para la Identificación y Manejo de las Emociones con IA + IoT**
 
@@ -106,14 +106,29 @@ MirrorMind es una aplicación iOS innovadora diseñada para ayudar a estudiantes
   - Integración con sistema emocional: Compatible con selector de emociones
   - Arquitectura escalable: Preparado para CloudKit sync y futuras funcionalidades
 
+#### Fase 6: Analytics Dashboard
+- **Duración**: 1 sesión
+- **Responsable**: Analytics Dashboard Lead
+- **Entregables completados**:
+  - Componente WeeklyChart funcional con datos dinámicos de emociones
+  - Modelo EmotionalData completo para persistencia y análisis
+  - WeeklyDataViewModel con lógica de análisis automático de patrones
+  - Reemplazo completo de WeeklySummaryCardView en HomeView
+  - Estados inteligentes para días pasados, actuales y futuros
+  - Análisis emocional automático con cálculo de emoción predominante
+  - Gráfico semanal (Lunes-Domingo) con círculos proporcionales
+  - Texto dinámico contextual según análisis emocional
+  - Manejo de días sin datos con visualización apropiada
+  - Animaciones escalonadas y experiencia visual pulida
+
 ### Próximas Fases
 
-#### Fase 6: Analytics Dashboard
-- **Responsable**: Analytics Dashboard Lead
-- **Objetivo**: Implementar gráfico semanal con datos reales del SmartBand
+#### Fase 7: Tips de Olivia
+- **Responsable**: Olivia Content Lead
+- **Objetivo**: Sistema de consejos de IA personalizados
 - **Estado**: Pendiente
 
-#### Fases 7-12: Desarrollo Progresivo
+#### Fases 8-12: Desarrollo Progresivo
 - Selector de emociones (Fase 3)
 - Sistema de ejercicios (Fase 4)
 - Widget smartband (Fase 5)
@@ -139,12 +154,12 @@ MirrorMind es una aplicación iOS innovadora diseñada para ayudar a estudiantes
 MirrorMind/
 ├── Core/
 │   ├── Models/
-│   │   └── TabItem.swift                # Modelo de navegación ✅
+│   │   └── TabItem.swift                # Modelo de navegación
 │   └── Extensions/
-│       └── Color+Extensions.swift       # Sistema de colores ✅
+│       └── Color+Extensions.swift       # Sistema de colores
 ├── Config/
-│   ├── AppConfig.swift                  # Configuraciones generales ✅
-│   └── DesignConstants.swift           # Constantes de diseño ✅
+│   ├── AppConfig.swift                  # Configuraciones generales
+│   └── DesignConstants.swift           # Constantes de diseño
 ├── Features/
 │   ├── Common/
 │   │   ├── Models/
@@ -168,11 +183,11 @@ MirrorMind/
 │           ├── CustomTabBar.swift      # Tab bar personalizado
 │           └── TabBarButton.swift      # Botones individuales
 ├── Resources/Assets.xcassets/
-│   └── Colors/                         # Sistema completo ✅
+│   └── Colors/                         # Sistema completo
 │       ├── Emociones/                  # 6 colores emocionales
 │       ├── Principales/                # Colores brand
 │       └── Texto/                      # Jerarquía de textos
-└── MirrorMindApp.swift                 # Punto de entrada ✅
+└── MirrorMindApp.swift                 # Punto de entrada
 ```
 
 ## Design System
@@ -217,23 +232,28 @@ Color.Text.secondary     // #4A5568 - Subtítulos
 - **HomeView**: Dashboard principal con 5 tarjetas funcionales
 - **HomeViewModel**: Lógica de estado emocional y ejercicios dinámicos con 28 ejercicios mock
 - **SmartBandViewModel**: Gestión completa de estados y datos biométricos en tiempo real
+- **WeeklyDataViewModel**: Análisis semanal automático con cálculo de patrones emocionales
 - **EmotionSelectorCardView**: Grid 3x2 de emociones completamente interactivo
 - **ExerciseSuggestionsCardView**: Scroll horizontal con ejercicios dinámicos por emoción
 - **ExerciseCard**: Componente de tarjeta con thumbnail, duración y colores por categoría
 - **SmartBandCardView**: Widget con 3 estados dinámicos y datos biométricos reales
-- **WeeklySummaryCardView**: Gráfico de 7 días con resumen emocional
+- **WeeklyChart**: Gráfico semanal funcional con análisis emocional automático
 - **OliviaTipsCardView**: Consejos de IA con estilo personalizado
 - **Saludo personalizado**: Avatar circular y mensaje contextual
 - **Layout responsivo**: Adaptación automática a diferentes pantallas
 - **Sistema emocional interactivo**: Selección única con feedback visual y contenido dinámico
 - **Sistema de ejercicios dinámico**: 28 ejercicios organizados por emociones y categorías
 - **Sistema SmartBand completo**: Core Data + CloudKit con datos biométricos persistentes
+- **Sistema de análisis semanal**: Datos emocionales procesados con insights automáticos
 
 #### Modelos de Datos
 - **TabItem**: Enum con 4 tabs (home, momentos, chat, perfil)
 - **Emotion**: Struct con 6 emociones predefinidas
 - **Exercise**: Modelo completo con 28 ejercicios organizados por emociones y categorías
 - **ExerciseCategory**: Enum con 5 categorías (respirar, meditar, moverte, reflexionar, crecer)
+- **EmotionalData**: Estructura para análisis emocional con timestamps y contexto
+- **WeeklyEmotionalSummary**: Resumen semanal con emoción predominante y análisis
+- **DailyEmotionalData**: Datos procesados por día con estados (pasado/actual/futuro)
 - **SmartBandState**: Estados de conexión y datos biométricos en tiempo real
 - **LiveBiometricData**: Estructura para temperatura y BPM con timestamps
 - **BiometricReading**: Entidad Core Data para persistencia de datos biométricos
@@ -266,7 +286,12 @@ Color.Text.secondary     // #4A5568 - Subtítulos
 - Datos biométricos en tiempo real: Temperatura y BPM actualizados cada 3 segundos
 - Base de datos Core Data + CloudKit para persistencia de datos biométricos
 - Integración emocional con contexto biométrico asociado
-- Gráfico semanal emocional con 7 días de datos
+- Gráfico semanal emocional completamente funcional con datos dinámicos
+- Sistema de análisis automático de patrones emocionales semanales
+- Visualización inteligente de días pasados, actuales y futuros
+- Cálculo automático de emoción predominante con texto contextual
+- Círculos proporcionales para representar cada día de la semana
+- Manejo apropiado de días sin datos emocionales registrados
 - Tarjeta de consejos de Olivia IA con estilo diferenciado
 - Layout completamente responsivo
 - Integración perfecta con sistema de navegación
@@ -299,64 +324,6 @@ Color.Text.secondary     // #4A5568 - Subtítulos
 - Componentes reutilizables listos para expansión
 - Aplicación consistente en todas las vistas implementadas
 
-## Instalación y Configuración
-
-### Requisitos
-- macOS 26+ 
-- Xcode 15+
-- iOS 26.0+ (simulador o dispositivo)
-
-### Pasos de Instalación
-
-1. **Clonar el repositorio**
-```bash
-git clone [URL_DEL_REPOSITORIO]
-cd MirrorMind
-```
-
-2. **Abrir en Xcode**
-```bash
-open MirrorMind.xcodeproj
-```
-
-3. **Compilar y ejecutar**
-- Seleccionar simulador iOS 26.0+
-- Presionar ⌘R para compilar y ejecutar
-
-### Configuración del Proyecto
-- Target de deployment: iOS 26.0
-- Orientaciones soportadas: Portrait, Landscape
-- Configuraciones disponibles: Debug, Release
-
-## Instalación y Configuración
-
-### Requisitos
-- macOS 26+ 
-- Xcode 15+
-- iOS 26.0+ (simulador o dispositivo)
-
-### Pasos de Instalación
-
-1. **Clonar el repositorio**
-```bash
-git clone [URL_DEL_REPOSITORIO]
-cd MirrorMind
-```
-
-2. **Abrir en Xcode**
-```bash
-open MirrorMind.xcodeproj
-```
-
-3. **Compilar y ejecutar**
-- Seleccionar simulador iOS 26.0+
-- Presionar ⌘R para compilar y ejecutar
-
-### Configuración del Proyecto
-- Target de deployment: iOS 26.0
-- Orientaciones soportadas: Portrait, Landscape
-- Configuraciones disponibles: Debug, Release
-
 ## Documentación Técnica
 
 ### Recursos Principales
@@ -387,21 +354,6 @@ private var _selectedEmotion: Emotion?
 - Documentación en código para métodos públicos
 - Testing unitario para ViewModels críticos
 
-## Contribución
-
-### Desarrollo Colaborativo
-- **Estrategia**: Desarrollo por fases especializadas
-- **Control de versiones**: Git con feature branches
-- **Comunicación**: Documentación de cambios entre fases
-- **Testing**: Validación funcional después de cada fase
-
-### Para Nuevos Colaboradores
-1. Revisar documentación completa del proyecto
-2. Familiarizarse con el design system implementado
-3. Seguir convenciones de naming establecidas
-4. Desarrollar por bloques pequeños y funcionales
-5. Validar funcionalidad antes de continuar
-
 ## Estado Actual
 
 ### Funcionalidades Operativas
@@ -420,7 +372,13 @@ private var _selectedEmotion: Emotion?
 - Base de datos Core Data + CloudKit funcionando correctamente
 - Persistencia automática de todos los datos biométricos y emocionales
 - Integración emocional con contexto biométrico asociado
-- Gráfico semanal con datos mock
+- Gráfico semanal completamente funcional con análisis automático
+- Sistema de análisis emocional que calcula patrones semanales
+- Visualización inteligente de días pasados, actuales y futuros
+- Manejo apropiado de días sin datos con estados diferenciados
+- Cálculo automático de emoción predominante semanal
+- Texto dinámico contextual según análisis de patrones
+- Animaciones escalonadas en gráfico semanal
 - Sistema de colores aplicado consistentemente
 - Arquitectura MVVM completamente implementada
 - Design system robusto implementado
@@ -430,8 +388,8 @@ private var _selectedEmotion: Emotion?
 - Sistema de debugging y testing implementado
 
 ### Próximos Pasos
-- **Inmediato**: Integración de datos reales en gráfico semanal (Fase 6)
-- **Corto plazo**: Tips dinámicos de Olivia y navegación a reproductor de ejercicios
+- **Inmediato**: Implementación de tips dinámicos de Olivia (Fase 7)
+- **Corto plazo**: Sistema de consejos personalizados según contexto emocional y biométrico
 - **Mediano plazo**: Vista Momentos completa con categorías y filtros
 
 ---
