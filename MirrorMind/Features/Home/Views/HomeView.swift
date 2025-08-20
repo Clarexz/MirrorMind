@@ -160,8 +160,11 @@ struct ExerciseSuggestionsCardView: View {
 }
 
 struct SmartBandCardView: View {
+    @StateObject private var smartBandViewModel = SmartBandViewModel()
+    
     var body: some View {
         VStack(spacing: DesignConstants.Spacing.cardPadding) {
+            // Header con estado
             HStack {
                 Text("Smartband")
                     .font(.system(size: DesignConstants.Typography.heading2Size, weight: DesignConstants.Typography.boldWeight))
@@ -171,25 +174,17 @@ struct SmartBandCardView: View {
                 
                 HStack(spacing: 4) {
                     Circle()
-                        .fill(Color.red)
+                        .fill(stateColor)
                         .frame(width: 8, height: 8)
                     
-                    Text("Desconectado")
+                    Text(smartBandViewModel.connectionState.displayText)
                         .font(.system(size: DesignConstants.Typography.heading4Size, weight: DesignConstants.Typography.mediumWeight))
-                        .foregroundColor(Color.red)
+                        .foregroundColor(stateColor)
                 }
             }
             
-            // Botón conectar
-            Button("Conectar") {
-                // Acción conectar
-            }
-            .font(.system(size: DesignConstants.Typography.heading3Size, weight: DesignConstants.Typography.boldWeight))
-            .foregroundColor(.white)
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 12)
-            .background(Color.blue)
-            .cornerRadius(DesignConstants.Radius.button)
+            // Contenido según estado
+            contentView
         }
         .padding(DesignConstants.Spacing.cardPadding)
         .background(Color.white)
@@ -200,6 +195,87 @@ struct SmartBandCardView: View {
             x: DesignConstants.Shadow.cardOffset.width,
             y: DesignConstants.Shadow.cardOffset.height
         )
+    }
+    
+    // MARK: - Computed Properties
+    
+    private var stateColor: Color {
+        switch smartBandViewModel.connectionState {
+        case .disconnected:
+            return .red
+        case .connecting:
+            return .orange
+        case .connected:
+            return .green
+        }
+    }
+    
+    @ViewBuilder
+    private var contentView: some View {
+        switch smartBandViewModel.connectionState {
+        case .disconnected:
+            disconnectedView
+        case .connecting:
+            connectingView
+        case .connected:
+            connectedView
+        }
+    }
+    
+    // MARK: - State Views
+    
+    private var disconnectedView: some View {
+        Button("Conectar") {
+            smartBandViewModel.connectDevice()
+        }
+        .font(.system(size: DesignConstants.Typography.heading3Size, weight: DesignConstants.Typography.boldWeight))
+        .foregroundColor(.white)
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 12)
+        .background(Color.blue)
+        .cornerRadius(DesignConstants.Radius.button)
+    }
+    
+    private var connectingView: some View {
+        HStack {
+            ProgressView()
+                .scaleEffect(0.8)
+            
+            Text("Conectando...")
+                .font(.system(size: DesignConstants.Typography.heading3Size, weight: DesignConstants.Typography.mediumWeight))
+                .foregroundColor(Color.Text.secondary)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 12)
+    }
+    
+    private var connectedView: some View {
+        HStack {
+            // Temperatura
+            HStack(spacing: 4) {
+                Image(systemName: "thermometer")
+                    .foregroundColor(.orange)
+                    .font(.system(size: 16))
+                
+                Text(smartBandViewModel.currentReading?.formattedTemperature ?? "--°C")
+                    .font(.system(size: DesignConstants.Typography.heading3Size, weight: DesignConstants.Typography.boldWeight))
+                    .foregroundColor(Color.Text.primary)
+            }
+            
+            Spacer()
+            
+            // Heart Rate
+            HStack(spacing: 4) {
+                Image(systemName: "heart.fill")
+                    .foregroundColor(.red)
+                    .font(.system(size: 16))
+                
+                Text(smartBandViewModel.currentReading?.formattedHeartRate ?? "-- LPM")
+                    .font(.system(size: DesignConstants.Typography.heading3Size, weight: DesignConstants.Typography.boldWeight))
+                    .foregroundColor(Color.Text.primary)
+            }
+        }
+        .padding(.vertical, 8)
     }
 }
 
@@ -289,3 +365,4 @@ struct OliviaTipsCardView: View {
 #Preview {
     HomeView()
 }
+
