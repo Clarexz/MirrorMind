@@ -5,7 +5,7 @@
 ![iOS Version](https://img.shields.io/badge/iOS-26.0+-blue.svg)
 ![Swift Version](https://img.shields.io/badge/Swift-5.0-orange.svg)
 ![SwiftUI](https://img.shields.io/badge/SwiftUI-Yes-green.svg)
-![Status](https://img.shields.io/badge/Status-Sistema%20Ejercicios%20Completado-success.svg)
+![Status](https://img.shields.io/badge/Status-SmartBand%20Integration%20Completada-success.svg)
 
 **Aplicación iOS para la Identificación y Manejo de las Emociones con IA + IoT**
 
@@ -95,14 +95,25 @@ MirrorMind es una aplicación iOS innovadora diseñada para ayudar a estudiantes
   - 5 categorías de ejercicios con colores del design system
   - Sistema preparado para navegación a reproductor
 
+#### Fase 5: SmartBand Integration
+- **Duración**: 1 sesión
+- **Responsable**: SmartBand Integration Lead
+- **Entregables completados**:
+  - Base de datos implementada: Core Data + CloudKit configurado y funcional
+  - Estados dinámicos SmartBand: 3 estados según PDF (Desconectado → Conectando → Conectado)
+  - Datos biométricos en tiempo real: Temperatura y BPM que cambian cada 3 segundos
+  - Persistencia de datos: Todos los datos se guardan automáticamente en Core Data
+  - Integración con sistema emocional: Compatible con selector de emociones
+  - Arquitectura escalable: Preparado para CloudKit sync y futuras funcionalidades
+
 ### Próximas Fases
 
-#### Fase 5: Widget SmartBand
-- **Responsable**: SmartBand Integration Lead
-- **Objetivo**: Implementar funcionalidad completa del widget SmartBand
+#### Fase 6: Analytics Dashboard
+- **Responsable**: Analytics Dashboard Lead
+- **Objetivo**: Implementar gráfico semanal con datos reales del SmartBand
 - **Estado**: Pendiente
 
-#### Fases 6-12: Desarrollo Progresivo
+#### Fases 7-12: Desarrollo Progresivo
 - Selector de emociones (Fase 3)
 - Sistema de ejercicios (Fase 4)
 - Widget smartband (Fase 5)
@@ -118,6 +129,7 @@ MirrorMind es una aplicación iOS innovadora diseñada para ayudar a estudiantes
 - **Lenguaje**: Swift 5.0
 - **Framework**: SwiftUI
 - **Arquitectura**: MVVM (Model-View-ViewModel)
+- **Base de datos**: Core Data + CloudKit
 - **Plataforma**: iOS 26.0+
 - **IDE**: Xcode 15+
 
@@ -204,22 +216,28 @@ Color.Text.secondary     // #4A5568 - Subtítulos
 #### Vista Home Completa
 - **HomeView**: Dashboard principal con 5 tarjetas funcionales
 - **HomeViewModel**: Lógica de estado emocional y ejercicios dinámicos con 28 ejercicios mock
+- **SmartBandViewModel**: Gestión completa de estados y datos biométricos en tiempo real
 - **EmotionSelectorCardView**: Grid 3x2 de emociones completamente interactivo
 - **ExerciseSuggestionsCardView**: Scroll horizontal con ejercicios dinámicos por emoción
 - **ExerciseCard**: Componente de tarjeta con thumbnail, duración y colores por categoría
-- **SmartBandCardView**: Widget con estados de conexión visual
+- **SmartBandCardView**: Widget con 3 estados dinámicos y datos biométricos reales
 - **WeeklySummaryCardView**: Gráfico de 7 días con resumen emocional
 - **OliviaTipsCardView**: Consejos de IA con estilo personalizado
 - **Saludo personalizado**: Avatar circular y mensaje contextual
 - **Layout responsivo**: Adaptación automática a diferentes pantallas
 - **Sistema emocional interactivo**: Selección única con feedback visual y contenido dinámico
 - **Sistema de ejercicios dinámico**: 28 ejercicios organizados por emociones y categorías
+- **Sistema SmartBand completo**: Core Data + CloudKit con datos biométricos persistentes
 
 #### Modelos de Datos
 - **TabItem**: Enum con 4 tabs (home, momentos, chat, perfil)
 - **Emotion**: Struct con 6 emociones predefinidas
 - **Exercise**: Modelo completo con 28 ejercicios organizados por emociones y categorías
 - **ExerciseCategory**: Enum con 5 categorías (respirar, meditar, moverte, reflexionar, crecer)
+- **SmartBandState**: Estados de conexión y datos biométricos en tiempo real
+- **LiveBiometricData**: Estructura para temperatura y BPM con timestamps
+- **BiometricReading**: Entidad Core Data para persistencia de datos biométricos
+- **EmotionRecord**: Entidad Core Data para historial emocional con contexto biométrico
 - **AppConfig**: Configuraciones centralizadas
 - **DesignConstants**: Constantes de espaciado, colores y animaciones
 
@@ -244,17 +262,37 @@ Color.Text.secondary     // #4A5568 - Subtítulos
 - 5 categorías de ejercicios: respirar, meditar, moverte, reflexionar, crecer
 - Filtrado automático de ejercicios según emoción seleccionada
 - Scroll horizontal fluido sin errores de consola
-- Widget SmartBand con estados visuales (Desconectado/Conectando/Conectado)
+- Widget SmartBand completamente funcional con 3 estados dinámicos
+- Datos biométricos en tiempo real: Temperatura y BPM actualizados cada 3 segundos
+- Base de datos Core Data + CloudKit para persistencia de datos biométricos
+- Integración emocional con contexto biométrico asociado
 - Gráfico semanal emocional con 7 días de datos
 - Tarjeta de consejos de Olivia IA con estilo diferenciado
 - Layout completamente responsivo
 - Integración perfecta con sistema de navegación
 - Safe area handling optimizado para navbar flotante
-- Arquitectura MVVM implementada con HomeViewModel expandido
+- Arquitectura MVVM implementada con múltiples ViewModels especializados
 - Estados de selección persistentes durante la sesión
 - Animaciones suaves y experiencia de usuario pulida
+- Sistema de debugging y testing de Core Data implementado
+
+### Base de Datos y Persistencia
+- **Core Data + CloudKit**: Configuración completa para datos biométricos y emocionales
+- **Entidades implementadas**: BiometricReading y EmotionRecord con sincronización CloudKit
+- **PersistenceController**: Stack de Core Data optimizado para CloudKit
+- **Datos biométricos**: Temperatura y BPM persistidos automáticamente cada 3 segundos
+- **Historial emocional**: Emociones guardadas con contexto biométrico asociado
+- **Sincronización automática**: Datos disponibles entre dispositivos del usuario
+- **Privacidad garantizada**: Datos almacenados en iCloud del usuario, no en servidores terceros
 
 ### Design System Robusto
+- **Core Data + CloudKit**: Configuración completa para datos biométricos y emocionales
+- **Entidades implementadas**: BiometricReading y EmotionRecord con sincronización CloudKit
+- **PersistenceController**: Stack de Core Data optimizado para CloudKit
+- **Datos biométricos**: Temperatura y BPM persistidos automáticamente cada 3 segundos
+- **Historial emocional**: Emociones guardadas con contexto biométrico asociado
+- **Sincronización automática**: Datos disponibles entre dispositivos del usuario
+- **Privacidad garantizada**: Datos almacenados en iCloud del usuario, no en servidores terceros
 - Paleta de colores completa según especificaciones de diseño
 - Sistema de acceso centralizado a colores mediante extensiones
 - Constantes de diseño para espaciado, tipografía y animaciones
@@ -377,18 +415,23 @@ private var _selectedEmotion: Emotion?
 - Filtrado automático de ejercicios por emoción seleccionada
 - 5 categorías de ejercicios con colores específicos del design system
 - Scroll horizontal fluido sin errores de consola
-- Widget SmartBand con estados visuales
+- Widget SmartBand completamente funcional con 3 estados dinámicos
+- Datos biométricos en tiempo real que cambian cada 3 segundos
+- Base de datos Core Data + CloudKit funcionando correctamente
+- Persistencia automática de todos los datos biométricos y emocionales
+- Integración emocional con contexto biométrico asociado
 - Gráfico semanal con datos mock
 - Sistema de colores aplicado consistentemente
 - Arquitectura MVVM completamente implementada
 - Design system robusto implementado
 - Safe area y layout responsive optimizados
-- HomeViewModel con lógica completa de emociones y ejercicios
+- Múltiples ViewModels especializados funcionando en conjunto
 - Experiencia de usuario pulida sin bugs visuales
+- Sistema de debugging y testing implementado
 
 ### Próximos Pasos
-- **Inmediato**: Implementación de funcionalidad completa SmartBand (Fase 5)
-- **Corto plazo**: Navegación a reproductor de ejercicios y analytics emocionales
+- **Inmediato**: Integración de datos reales en gráfico semanal (Fase 6)
+- **Corto plazo**: Tips dinámicos de Olivia y navegación a reproductor de ejercicios
 - **Mediano plazo**: Vista Momentos completa con categorías y filtros
 
 ---
