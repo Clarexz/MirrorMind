@@ -12,10 +12,7 @@ struct CategoryCardView: View {
     var isFullWidth: Bool = false
     
     var body: some View {
-        Button(action: {
-            // TODO: Navegación a vista de categoría en Fase 10
-            print("Navegando a \(category.categoryType.rawValue)")
-        }) {
+        Button(action: {}) {
             Group {
                 if isFullWidth {
                     // Layout horizontal para la quinta tarjeta (centrado)

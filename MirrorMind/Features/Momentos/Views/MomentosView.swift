@@ -153,16 +153,22 @@ struct MomentosView: View {
                             VStack(spacing: DesignConstants.Spacing.sectionMargin) {
                                 // Grid de categorías (código original sin cambios)
                                 VStack(spacing: 12) {
-                                    // Primeras 4 categorías en grid 2x2
-                                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: DesignConstants.Spacing.gridGap) {
+                                    // Grid 2x2 para las primeras 4 categorías
+                                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
                                         ForEach(Array(MomentCategory.allCategories.prefix(4))) { category in
-                                            CategoryCardView(category: category, isFullWidth: false)
+                                            NavigationLink(destination: CategoryView(category: category)) {
+                                                CategoryCardView(category: category, isFullWidth: false)
+                                            }
+                                            .buttonStyle(PlainButtonStyle())
                                         }
                                     }
                                     
-                                    // Quinta categoría ocupando ancho completo
-                                    if let lastCategory = MomentCategory.allCategories.last {
-                                        CategoryCardView(category: lastCategory, isFullWidth: true)
+                                    // Quinta categoría con ancho completo
+                                    if let fifthCategory = MomentCategory.allCategories.last {
+                                        NavigationLink(destination: CategoryView(category: fifthCategory)) {
+                                            CategoryCardView(category: fifthCategory, isFullWidth: true)
+                                        }
+                                        .buttonStyle(PlainButtonStyle())
                                     }
                                 }
                                 .padding(.horizontal, DesignConstants.Spacing.containerPadding)
