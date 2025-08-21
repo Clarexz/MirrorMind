@@ -61,29 +61,6 @@ struct EmotionFilters: View {
                 }
                 
                 Spacer()
-                
-                // Botón para cerrar menú
-                Button(action: {
-                    viewModel.toggleEmotionFilterMenu()
-                }) {
-                    HStack(spacing: 8) {
-                        Image(systemName: "chevron.up")
-                            .font(.system(size: 14, weight: .medium))
-                            .foregroundColor(Color.Primary.brand)
-                        
-                        Text("Cerrar")
-                            .font(.system(size: DesignConstants.Typography.heading4Size, weight: DesignConstants.Typography.mediumWeight))
-                            .foregroundColor(Color.Primary.brand)
-                    }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 10)
-                    .background(Color.white)
-                    .cornerRadius(20)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color.Primary.brand, lineWidth: 1)
-                    )
-                }
             }
             .padding(.horizontal, DesignConstants.Spacing.containerPadding)
         }
@@ -99,8 +76,6 @@ struct EmotionFilters: View {
                 )
         )
         .padding(.horizontal, DesignConstants.Spacing.containerPadding)
-        .transition(.opacity)
-        .animation(.none, value: viewModel.isEmotionFilterMenuOpen)
     }
 }
 

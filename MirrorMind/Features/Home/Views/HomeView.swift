@@ -136,7 +136,7 @@ struct ExerciseSuggestionsCardView: View {
             
             // Scroll horizontal de ejercicios con ExerciseCard
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: DesignConstants.Spacing.gridGap) {
+                HStack(alignment: .top, spacing: DesignConstants.Spacing.gridGap) {
                     ForEach(viewModel.suggestedExercises) { exercise in
                         ExerciseCard(exercise: exercise) {
                             // TODO: Navegación a reproductor de ejercicio

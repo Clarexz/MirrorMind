@@ -2,7 +2,7 @@
 //  MomentsExerciseCard.swift
 //  MirrorMind
 //
-//  Created by Caleb Martinez Cavazos on 20/08/25.
+//  Created by Moments Filters Lead on 20/08/25.
 //
 
 import SwiftUI
@@ -16,14 +16,9 @@ struct MomentsExerciseCard: View {
     var body: some View {
         Button(action: action) {
             ZStack {
-                // Fondo con color de categoría
+                // Fondo con color de categoría SIN overlay
                 RoundedRectangle(cornerRadius: DesignConstants.Radius.card)
                     .fill(exercise.category.color)
-                    .frame(height: 140) // Más alto para acomodar etiquetas
-                
-                // Overlay semitransparente sutil
-                RoundedRectangle(cornerRadius: DesignConstants.Radius.card)
-                    .fill(Color.black.opacity(0.15))
                     .frame(height: 140)
                 
                 VStack(spacing: 0) {

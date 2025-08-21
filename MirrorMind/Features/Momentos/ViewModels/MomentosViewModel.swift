@@ -2,14 +2,6 @@
 //  MomentosViewModel.swift
 //  MirrorMind
 //
-//  Created by Caleb Martinez Cavazos on 20/08/25.
-//
-
-
-//
-//  MomentosViewModel.swift
-//  MirrorMind
-//
 //  Created by Moments Filters Lead on 20/08/25.
 //
 
@@ -121,10 +113,16 @@ class MomentosViewModel: ObservableObject {
         showFavoritesOnly.toggle()
     }
     
-    /// Selecciona una emoción para filtrar
+    /// Selecciona una emoción para filtrar (toggle si ya está seleccionada)
     func selectEmotionFilter(_ emotion: Emotion) {
-        selectedEmotionFilter = emotion
-        isEmotionFilterMenuOpen = false
+        if selectedEmotionFilter?.id == emotion.id {
+            // Si ya está seleccionada, la deseleccionamos
+            selectedEmotionFilter = nil
+        } else {
+            // Si no está seleccionada, la seleccionamos
+            selectedEmotionFilter = emotion
+        }
+        // NO cerramos automáticamente el menú
     }
     
     /// Limpia el filtro de emoción
