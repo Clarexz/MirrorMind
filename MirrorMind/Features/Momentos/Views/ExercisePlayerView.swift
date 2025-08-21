@@ -30,27 +30,23 @@ struct ExercisePlayerView: View {
                 // Header con navegación
                 headerView
                 
-                // Contenido principal
-                ScrollView {
-                    VStack(spacing: 24) {
-                        // Video player mock
-                        videoPlayerView
-                        
-                        // Información del ejercicio
-                        exerciseInfoView
-                        
-                        // Controles de reproducción
-                        playbackControlsView
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.bottom, 100) // Espacio para navbar
+                // Contenido principal centrado
+                VStack(spacing: 30) {
+                    Spacer()
+                        .frame(maxHeight: 0) // Limitar el spacer de arriba
+                    
+                    // Video player mock
+                    videoPlayerView
+                    
+                    // Controles de reproducción
+                    playbackControlsView
+                    
+                    Spacer() // Este se queda flexible para centrar
                 }
+                .padding(.horizontal, 20)
             }
         }
         .navigationBarHidden(true)
-        .onAppear {
-            viewModel.setupExercise(exercise)
-        }
     }
     
     // MARK: - Header View
@@ -124,48 +120,6 @@ struct ExercisePlayerView: View {
                 y: DesignConstants.Shadow.cardOffset.height
             )
         }
-    }
-    
-    // MARK: - Exercise Info View
-    private var exerciseInfoView: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            // Título y categoría
-            VStack(alignment: .leading, spacing: 8) {
-                Text(exercise.name)
-                    .font(.system(size: 24, weight: .bold))
-                    .foregroundColor(Color.Text.primary)
-                
-                HStack(spacing: 8) {
-                    // Indicador de categoría
-                    Text(exercise.category.displayName)
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(categoryColor)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 6)
-                        .background(categoryColor.opacity(0.1))
-                        .cornerRadius(12)
-                    
-                    // Duración
-                    HStack(spacing: 4) {
-                        Image(systemName: "clock")
-                            .font(.system(size: 12))
-                            .foregroundColor(Color.Text.secondary)
-                        
-                        Text(exercise.formattedDuration)
-                            .font(.system(size: 14, weight: .medium))
-                            .foregroundColor(Color.Text.secondary)
-                    }
-                }
-            }
-            
-            // Descripción
-            Text(exercise.description)
-                .font(.system(size: 16, weight: .regular))
-                .foregroundColor(Color.Text.secondary)
-                .lineSpacing(4)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, 4)
     }
     
     // MARK: - Playback Controls View

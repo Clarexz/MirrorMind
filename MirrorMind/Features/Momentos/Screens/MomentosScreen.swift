@@ -19,7 +19,7 @@ struct MomentosScreen: View {
     var body: some View {
         NavigationView {
             MomentosView()
-                .navigationBarHidden(true)
+                //.navigationBarHidden(true)
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
