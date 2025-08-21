@@ -1,272 +1,232 @@
-# MirrorMind iOS App
+# MirrorMind iOS
 
 <div align="center">
 
-![iOS Version](https://img.shields.io/badge/iOS-26.0+-blue.svg)
-![Swift Version](https://img.shields.io/badge/Swift-5.0-orange.svg)
-![SwiftUI](https://img.shields.io/badge/SwiftUI-Yes-green.svg)
-![Status](https://img.shields.io/badge/Status-Sistema%20de%20Filtros%20Completado-success.svg)
+![Swift](https://img.shields.io/badge/Swift-5.0-FA7343?style=for-the-badge&logo=swift&logoColor=white)
+![SwiftUI](https://img.shields.io/badge/SwiftUI-iOS_26+-2196F3?style=for-the-badge&logo=swift&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Completado-28a745?style=for-the-badge)
+![Architecture](https://img.shields.io/badge/Architecture-MVVM-purple?style=for-the-badge)
 
 **Aplicación iOS para la Identificación y Manejo de las Emociones con IA + IoT**
 
-*Sistema de gestión emocional para estudiantes universitarios*
+*Sistema de gestión emocional personalizado para estudiantes universitarios*
+
+[Características](#características) • [Instalación](#instalación) • [Arquitectura](#arquitectura) • [Uso](#cómo-usar-la-app) • [Desarrollo](#desarrollo)
 
 </div>
 
-## Descripción del Proyecto
+## Descripción
 
-MirrorMind es una aplicación iOS innovadora diseñada para ayudar a estudiantes universitarios en la gestión y comprensión de sus emociones. Combina inteligencia artificial, análisis biométrico mediante smartband, y ejercicios personalizados para mejorar el bienestar emocional y el rendimiento académico.
+MirrorMind es una aplicación iOS innovadora que combina inteligencia artificial, análisis biométrico mediante smartband, y ejercicios personalizados para ayudar a estudiantes universitarios en la gestión de sus emociones. La app detecta estados emocionales y proporciona contenido adaptado para mejorar el bienestar emocional y el rendimiento académico.
 
-### Características Principales
+### Problemática Abordada
 
-- **Selector de emociones**: Interfaz intuitiva para identificar el estado emocional actual
-- **Sistema de filtros**: Organización inteligente de contenido por favoritos y emociones
-- **Smartband IoT**: Integración con dispositivo biométrico para monitoreo en tiempo real
-- **Ejercicios personalizados**: Contenido adaptado según el estado emocional detectado
-- **Olivia IA**: Asistente virtual que proporciona consejos y recomendaciones personalizadas
-- **Análisis emocional**: Seguimiento de patrones emocionales a lo largo del tiempo
+El deterioro de la salud mental y la dificultad en el manejo de emociones ha aumentado significativamente en estudiantes universitarios, generando impacto directo en el rendimiento académico y calidad de vida. MirrorMind ofrece una solución tecnológica integral que combina detección emocional automática con contenido personalizado.
 
-## Estado del Desarrollo
+## Características
 
-### Fases Completadas
+### Funcionalidades Principales
 
-#### Fase 0: Fundación del Proyecto
-- **Duración**: 1 sesión
-- **Responsable**: iOS Foundation Lead
-- **Entregables completados**:
-  - Estructura MVVM del proyecto establecida
-  - Sistema de colores completo implementado según diseño PDF
-  - Configuración de constantes de diseño
-  - Modelos base creados (TabItem, Emotion)
-  - Extensiones de Color para fácil acceso
-  - Documentación de setup inicial
+- **Selector de Emociones Inteligente**: Grid de 6 emociones con detección visual y contenido adaptativo
+- **Sistema de Filtros Avanzado**: Organización de contenido por favoritos y estados emocionales
+- **Reproductor de Ejercicios**: Experiencia completa con controles multimedia y progreso en tiempo real
+- **Integración IoT**: Monitoreo biométrico mediante smartband con sincronización automática
+- **Asistente IA "Olivia"**: Tips personalizados y consejos contextuales según el estado emocional
+- **Analytics Emocional**: Gráficos semanales con análisis de patrones y tendencias
+- **Persistencia Inteligente**: Sincronización automática con iCloud y almacenamiento local
 
-#### Fase 1: Sistema de Navegación
-- **Duración**: 1 sesión  
-- **Responsable**: Navigation System Lead
-- **Entregables completados**:
-  - Tab bar personalizado funcional con 4 secciones
-  - Navegación fluida entre vistas principales
-  - Estados visuales correctos (activo/inactivo)
-  - Transiciones suaves implementadas
-  - Vistas temporales para desarrollo futuro
-  - Integración completa con design system
+### Vistas Principales
 
-#### Fase 2: Vista Home - Estructura Base
-- **Duración**: 1 sesión
-- **Responsable**: Home Structure Lead
-- **Entregables completados**:
-  - Layout principal de HomeView con ScrollView implementado
-  - 5 tarjetas principales según diseño PDF
-  - Saludo personalizado con avatar circular
-  - Selector de emociones (grid 3x2) con colores reales
-  - Sistema de ejercicios con scroll horizontal
-  - Widget SmartBand con estados visuales
-  - Gráfico semanal emocional (7 días)
-  - Tarjeta de tips de Olivia con estilo especial
-  - Layout responsivo que se adapta a diferentes pantallas
-  - Integración completa con sistema de navegación
+#### Home - Dashboard Personalizado
+- **Saludo dinámico** con avatar personalizable
+- **Selector de emociones** reactivo (6 estados: Triste, Enojado, Ansioso, Nervioso, Feliz, Calmado)
+- **Ejercicios recomendados** con scroll horizontal de 28 ejercicios categorizados
+- **Widget SmartBand** con datos biométricos en tiempo real
+- **Gráfico semanal emocional** con análisis automático de tendencias
+- **Tips de Olivia** contextuales con rotación inteligente
 
-#### Fase 3: Selector de Emociones
-- **Duración**: 1 sesión
-- **Responsable**: Emotion Selector Lead
-- **Entregables completados**:
-  - Componente EmotionSelector totalmente funcional
-  - Selección única de emociones con estados visuales claros
-  - Modelo Emotion con 6 emociones predefinidas
-  - ViewModel especializado (EmotionSelectorViewModel)
-  - Integración perfecta con HomeView
-  - Estados activos/inactivos con colores del design system
-  - Lógica de selección intuitiva (toggle automático)
-
-#### Fase 4: Sistema de Ejercicios
-- **Duración**: 1 sesión
-- **Responsable**: Exercise System Lead
-- **Entregables completados**:
-  - Modelo Exercise completo con 28 ejercicios reales
-  - ExerciseCard reutilizable con diseño consistente
-  - ViewModel especializado para gestión de ejercicios
-  - Scroll horizontal funcionando perfectamente
-  - Integración con sistema de categorías y emociones
-  - Metadatos completos (duración, categoría, emociones objetivo)
-  - Estados visuales para favoritos preparados
-
-#### Fase 5: Widget SmartBand
-- **Duración**: 1 sesión
-- **Responsable**: SmartBand Integration Lead
-- **Entregables completados**:
-  - Core Data + CloudKit configuración completa
-  - Entidades BiometricReading y EmotionRecord con sincronización
-  - PersistenceController optimizado para CloudKit
-  - Datos biométricos persistidos automáticamente cada 3 segundos
-  - Historial emocional guardado con contexto biométrico
-  - Sincronización automática entre dispositivos del usuario
-  - Privacidad garantizada (datos en iCloud del usuario)
-
-#### Fase 6: Analytics Dashboard
-- **Duración**: 1 sesión
-- **Responsable**: Analytics Dashboard Lead
-- **Entregables completados**:
-  - Componente WeeklyChart funcional con datos dinámicos
-  - Modelo EmotionalData para persistencia y análisis
-  - WeeklyDataViewModel con lógica de análisis automático
-  - Integración perfecta reemplazando WeeklySummaryCardView
-  - Estados inteligentes para días pasados, actual y futuros
-  - Análisis emocional con cálculo de emoción predominante
-
-#### Fase 7: Tips de Olivi
-- **Duración**: 1 sesión
-- **Responsable**: Olivia Tips Lead
-- **Entregables completados**:
-  - Sistema de tips dinámicos con 20+ consejos únicos
-  - Modelo Tip con categorización por emociones
-  - TipManager para rotación inteligente de consejos
-  - Componente OlivaTipsCard con diseño especial
-  - Integración con avatar de Olivia y colores brand
-  - Lógica de tips contextuales según emociones seleccionadas
-
-#### Fase 8: Vista Momentos 
-- **Duración**: 1 sesión
-- **Responsable**: Moments Structure Lead
-- **Entregables completados**:
-  - Vista MomentosView completamente implementada según PDF
-  - Modelo MomentCategory con 5 categorías completas
-  - Grid 2x2+1 según diseño con quinta categoría horizontal
-  - Componente CategoryCardView reutilizable con dos modos
-  - Colores específicos por categoría aplicados
-  - Iconografía apropiada con SF Symbols
-  - Botones de filtros preparados para Fase 9
-  - Sección "Dato curioso" con tips dinámicos
-  - Layout responsivo con scroll y safe area optimizado
-
-#### Fase 9: Sistema de Filtros en Momentos
-- **Duración**: 1 sesión
-- **Responsable**: Moments Filters Lead
-- **Entregables completados**:
-  - **MomentosViewModel**: ViewModel completo con persistencia local
-  - **Sistema de favoritos**: Funcional con UserDefaults para guardar favoritos
-  - **Estados visuales dinámicos**: Botones de filtro con colores activos/inactivos
-  - **Vista filtrada inteligente**: Muestra ejercicios filtrados vs vista normal
-  - **Estado vacío**: Mensaje descriptivo cuando no hay favoritos guardados
-  - **EmotionFilters**: Componente de menú desplegable para 6 emociones
-  - **Filtrado por emoción**: Toggle funcional (presionar misma emoción deselecciona)
-  - **Combinación de filtros**: Favoritos + emoción funcionan juntos
-  - **Menú manual**: Usuario controla cuándo cerrar filtros de emociones
-  - **Colores dinámicos**: Estados activos con colores vibrantes del design system
-  - **Performance optimizada**: Computed properties para filtrado eficiente
-
-### Próximas Fases
-
-#### Fase 10: Reproductor de Ejercicios
-- **Responsable**: Exercise Player Lead
-- **Objetivo**: Implementar reproductor completo de ejercicios con navegación
-- **Estado**: Pendiente - Datos preparados y navegación lista
-
-#### Fases 11-12: Finalización
-- Chat y Perfil (Fase 11)
-- Testing e integración final (Fase 12)
-
-## Funcionalidades Operativas Actuales
-
-### Navegación Completa
-- Tab bar personalizado funcional entre Home y Momentos
-- Transiciones suaves sin errores
-- Estados visuales correctos en navegación
-- Preparación para Chat y Perfil
-
-### Vista Home Funcional
-- **Saludo personalizado**: Avatar circular y nombre dinámico
-- **Selector de emociones**: 6 emociones con selección única funcional
-- **Ejercicios recomendados**: Scroll horizontal con 28 ejercicios reales
-- **Widget SmartBand**: Datos biométricos en tiempo real con Core Data + CloudKit
-- **Gráfico semanal**: Análisis emocional con datos dinámicos y emoción predominante
-- **Tips de Olivia**: Consejos contextuales con rotación inteligente
-
-### Vista Momentos Funcional
+#### Momentos - Centro de Ejercicios
 - **5 categorías organizadas**: Respirar, Meditar, Moverte, Reflexionar, Crecer
-- **Grid responsivo**: Layout 2x2+1 con quinta categoría horizontal especial
 - **Sistema de filtros completo**:
-  - Filtro de favoritos con persistencia local
-  - Filtros por emoción con menú desplegable
-  - Combinación inteligente de ambos filtros
-  - Estados visuales dinámicos y colores activos
-- **Estados vacíos**: Mensajes descriptivos cuando no hay contenido filtrado
-- **Dato curioso**: Tips dinámicos en parte superior
+  - Filtro por favoritos con persistencia local
+  - Filtro por emociones con menú desplegable
+  - Combinación inteligente de múltiples filtros
+- **Grid responsivo** con layout 2x2+1 optimizado
+- **Estados vacíos informativos** cuando no hay contenido
+- **15 ejercicios especializados** (3 por categoría) con reproductor integrado
 
-### Sistemas de Datos
-- **Core Data + CloudKit**: Configuración completa para datos biométricos
-- **Persistencia local**: Favoritos y preferencias guardados automáticamente
-- **Sincronización**: Datos disponibles entre dispositivos del usuario
-- **Privacidad**: Almacenamiento en iCloud del usuario, no servidores terceros
+#### Reproductor de Ejercicios
+- **Reproductor multimedia completo** con controles profesionales
+- **Barra de progreso interactiva** con navegación por gestos
+- **Controles de skip** (±15 segundos) y play/pause
+- **Sistema de favoritos** integrado con persistencia
+- **Colores dinámicos** según la categoría del ejercicio
+- **Timer en tiempo real** con actualizaciones cada 0.1 segundos
 
-## Arquitectura Técnica
+## Arquitectura
 
 ### Stack Tecnológico
+
+```
+SwiftUI + MVVM + Core Data + CloudKit
+```
+
 - **Lenguaje**: Swift 5.0
-- **Framework**: SwiftUI
+- **Framework UI**: SwiftUI (declarativo)
 - **Arquitectura**: MVVM (Model-View-ViewModel)
-- **Base de datos**: Core Data + CloudKit
-- **Persistencia local**: UserDefaults para configuraciones
-- **Plataforma**: iOS 26.0+
-- **IDE**: Xcode 15+
+- **Persistencia**: Core Data + CloudKit para sincronización
+- **Navegación**: NavigationStack nativo de SwiftUI
+- **Estado**: @StateObject, @ObservableObject, @Published
 
 ### Estructura del Proyecto
 
 ```
 MirrorMind/
 ├── Core/
-│   ├── Models/
-│   │   ├── TabItem.swift                    # Navegación principal
-│   │   └── PersistenceController.swift      # Core Data + CloudKit
+│   ├── Models/                          # Modelos centrales
+│   │   ├── TabItem.swift               # Navegación principal
+│   │   └── PersistenceController.swift # Core Data + CloudKit
 │   └── Extensions/
-│       └── Color+Extensions.swift           # Sistema de colores
+│       └── Color+Extensions.swift      # Sistema de colores
+│
 ├── Config/
-│   ├── AppConfig.swift                      # Configuraciones generales
-│   └── DesignConstants.swift                # Constantes de diseño
+│   ├── AppConfig.swift                 # Configuraciones generales
+│   └── DesignConstants.swift           # Constantes de diseño
+│
 ├── Features/
 │   ├── Common/
 │   │   ├── Models/
-│   │   │   ├── Emotion.swift                # 6 emociones del sistema
-│   │   │   ├── Exercise.swift               # 28 ejercicios completos
-│   │   │   ├── Tip.swift                    # Tips de Olivia
-│   │   │   └── EmotionalData.swift          # Datos de análisis
+│   │   │   ├── Emotion.swift           # 6 emociones del sistema
+│   │   │   ├── Exercise.swift          # 28 ejercicios completos
+│   │   │   ├── Tip.swift              # Sistema de tips de Olivia
+│   │   │   └── EmotionalData.swift     # Analytics emocionales
 │   │   └── Views/Components/
-│   │       ├── EmotionSelector.swift        # Selector funcional
-│   │       ├── ExerciseCard.swift           # Tarjetas de ejercicios
-│   │       └── OlivaTipsCard.swift          # Tips de Olivia
+│   │       ├── EmotionSelector.swift   # Selector de emociones
+│   │       ├── ExerciseCard.swift      # Tarjetas de ejercicios
+│   │       └── OlivaTipsCard.swift     # Componente de tips
+│   │
 │   ├── Home/
 │   │   ├── Views/
-│   │   │   ├── HomeView.swift               # Vista principal completa
-│   │   │   ├── WeeklyChart.swift            # Gráfico semanal
-│   │   │   └── SmartBandWidget.swift        # Widget biométrico
+│   │   │   ├── HomeView.swift          # Dashboard principal
+│   │   │   ├── WeeklyChart.swift       # Gráfico semanal
+│   │   │   └── SmartBandWidget.swift   # Widget biométrico
 │   │   └── ViewModels/
 │   │       ├── EmotionSelectorViewModel.swift
 │   │       ├── ExerciseViewModel.swift
 │   │       └── WeeklyDataViewModel.swift
+│   │
 │   ├── Momentos/
 │   │   ├── Views/
-│   │   │   ├── MomentosView.swift           # Vista completa con filtros
-│   │   │   ├── CategoryCardView.swift       # Tarjetas de categorías
-│   │   │   └── EmotionFilters.swift         # Menú de filtros
+│   │   │   ├── MomentosView.swift      # Vista principal con filtros
+│   │   │   ├── CategoryView.swift      # Lista por categoría
+│   │   │   ├── ExercisePlayerView.swift # Reproductor completo
+│   │   │   └── EmotionFilters.swift    # Sistema de filtros
 │   │   ├── ViewModels/
-│   │   │   └── MomentosViewModel.swift      # Filtros y favoritos
+│   │   │   ├── MomentosViewModel.swift # Filtros y favoritos
+│   │   │   └── ExercisePlayerViewModel.swift
 │   │   └── Models/
-│   │       └── MomentCategory.swift         # 5 categorías
-│   ├── Navbar/
-│   │   └── Views/
-│   │       └── Navbar.swift                 # Navegación principal
-│   ├── Chat/                               # Preparado para Fase 11
-│   └── Perfil/                             # Preparado para Fase 11
+│   │       └── MomentCategory.swift    # 5 categorías
+│   │
+│   └── Navbar/
+│       └── Views/
+│           └── Navbar.swift            # Navegación principal
+│
 └── Resources/
     └── Assets.xcassets/
-        └── Colors/                          # Sistema completo
+        └── Colors/                     # Sistema completo de colores
 ```
 
-### Design System Completo
+### Patrones de Diseño Implementados
+
+#### MVVM (Model-View-ViewModel)
+- **Models**: Datos y lógica de negocio (`Exercise`, `Emotion`, `Tip`)
+- **Views**: UI declarativa con SwiftUI (`HomeView`, `MomentosView`)
+- **ViewModels**: Estado y lógica de presentación (`@ObservableObject`)
+
+#### Inyección de Dependencias
+```swift
+@StateObject private var emotionViewModel = EmotionSelectorViewModel()
+@StateObject private var momentosViewModel = MomentosViewModel()
+```
+
+#### Singleton Pattern
+```swift
+// Base de datos de tips centralizada
+OliviaTipsDatabase.shared
+
+// Controlador de persistencia global
+PersistenceController.shared
+```
+
+#### Observer Pattern
+```swift
+@Published var selectedEmotion: Emotion?
+@Published var showFavoritesOnly: Bool = false
+@Published var filteredExercises: [Exercise] = []
+```
+
+## Cómo Usar la App
+
+### Flujo Principal de Usuario
+
+#### 1. Inicio - Reconocimiento Emocional
+```
+Home → Selector de Emociones → Contenido Personalizado
+```
+
+1. **Abrir la app** en la pestaña "Inicio"
+2. **Seleccionar tu emoción actual** del grid de 6 opciones
+3. **Ver contenido adaptado**: ejercicios, tips y análisis personalizados
+4. **Monitorear datos biométricos** en el widget SmartBand
+
+#### 2. Exploración - Ejercicios por Categorías
+```
+Momentos → Filtros → Categoría → Ejercicio → Reproductor
+```
+
+1. **Navegar a "Momentos"** desde el tab bar
+2. **Aplicar filtros** por favoritos o emociones específicas
+3. **Seleccionar una categoría** (Respirar, Meditar, Moverte, etc.)
+4. **Elegir un ejercicio** de la lista especializada
+5. **Usar el reproductor** con controles completos
+
+#### 3. Seguimiento - Analytics y Progreso
+```
+Home → Gráfico Semanal → Análisis de Tendencias
+```
+
+1. **Revisar el gráfico semanal** en la vista Home
+2. **Analizar patrones emocionales** y emoción predominante
+3. **Leer tips de Olivia** contextualizada a tu estado
+4. **Marcar ejercicios como favoritos** para acceso rápido
+
+### Características Avanzadas
+
+#### Sistema de Filtros
+- **Filtro por Favoritos**: Muestra solo ejercicios guardados
+- **Filtro por Emoción**: 6 opciones con toggle intuitivo
+- **Combinación**: Ambos filtros funcionan simultáneamente
+- **Estados Vacíos**: Mensajes informativos cuando no hay contenido
+
+#### Persistencia de Datos
+- **Favoritos**: Guardados localmente con UserDefaults
+- **Datos Biométricos**: Core Data + CloudKit para sincronización
+- **Analytics**: Historial emocional con análisis automático
+- **Preferencias**: Estado de filtros y selecciones
+
+#### Integración SmartBand
+- **Datos en Tiempo Real**: Temperatura y BPM cada 3 segundos
+- **Estados Visuales**: Conectado, Desconectado, Sincronizando
+- **Persistencia**: Historial completo en Core Data
+- **Privacidad**: Datos almacenados en iCloud del usuario
+
+## Desarrollo
+
+### Design System
 
 #### Paleta de Colores
 ```swift
-// Emociones - Según especificaciones PDF
+// Emociones - Según especificaciones del proyecto
 Color.Emotions.sad          // #7BA3D0 - Azul sereno
 Color.Emotions.angry        // #E07A7A - Coral suave  
 Color.Emotions.anxious      // #F4C542 - Mostaza suave
@@ -285,27 +245,150 @@ Color.Text.secondary        // #4A5568 - Subtítulos
 
 #### Constantes de Diseño
 ```swift
-// Espaciado
+// Espaciado consistente
 DesignConstants.Spacing.containerPadding    // 20pt
 DesignConstants.Spacing.cardPadding         // 16pt
 DesignConstants.Spacing.sectionMargin       // 24pt
 
-// Radius
+// Bordes redondeados
 DesignConstants.Radius.card                 // 16pt
 DesignConstants.Radius.button               // 12pt
 DesignConstants.Radius.emotion              // 50pt
 
-// Sombras
-DesignConstants.Shadow.card                 // Color y configuración
+// Sombras profesionales
+DesignConstants.Shadow.card                 // Configuración completa
 ```
 
-## Criterios de Aceptación Cumplidos
+### Modelos de Datos Principales
 
-### Sistema General
-- [x] Navegación fluida sin crashes entre Home y Momentos
-- [x] Tiempo de respuesta < 1 segundo en todas las interacciones
-- [x] Diseño pixel-perfect según especificaciones PDF
-- [x] Funcionalidades core al 100% operativas
-- [x] Core Data + CloudKit funcionando sin errores
-- [x] Persistencia de datos local y en la nube
-- [x] Estados visuales consistentes en toda la app
+#### Exercise - Sistema de Ejercicios
+```swift
+struct Exercise: Identifiable, Codable {
+    let id: UUID
+    let name: String
+    let description: String
+    let duration: TimeInterval          // En segundos
+    let category: ExerciseCategory      // 5 categorías
+    let targetEmotions: [Emotion]       // Emociones objetivo
+    let thumbnailName: String           // Asset de imagen
+    let difficulty: Difficulty          // Nivel de dificultad
+}
+
+// 28 ejercicios pre-cargados organizados por categoría:
+// Respirar (3), Meditar (3), Moverte (3), Reflexionar (3), Crecer (3)
+```
+
+#### Emotion - Estados Emocionales
+```swift
+struct Emotion: Identifiable, Codable, Hashable {
+    let id: UUID
+    let name: String                    // "Feliz", "Triste", etc.
+    let color: String                   // Referencia a Color.Emotions.*
+    let icon: String                    // SF Symbol
+    
+    static let emotions: [Emotion] = [
+        // 6 emociones predefinidas del sistema
+    ]
+}
+```
+
+#### EmotionalData - Analytics
+```swift
+struct EmotionalData: Identifiable, Codable {
+    let id: UUID
+    let date: Date
+    let emotion: Emotion
+    let intensity: Double               // 0.0 - 1.0
+    let biometricContext: BiometricContext?
+}
+
+struct WeeklyEmotionalSummary {
+    let week: [DailyEmotionalData]      // Lunes a Domingo
+    let predominantEmotion: Emotion?    // Análisis automático
+    let insightText: String             // Generado dinámicamente
+}
+```
+
+### ViewModels Principales
+
+#### MomentosViewModel - Filtros y Estado
+```swift
+class MomentosViewModel: ObservableObject {
+    @Published var showFavoritesOnly: Bool = false
+    @Published var selectedEmotionFilter: Emotion? = nil
+    @Published var isEmotionFilterMenuOpen: Bool = false
+    
+    // Computed property con lógica de filtrado
+    var filteredExercises: [Exercise] {
+        // Combina filtros de favoritos y emociones
+    }
+    
+    // Persistencia local
+    func toggleFavorite(_ exercise: Exercise)
+    func selectEmotionFilter(_ emotion: Emotion)
+    func clearAllFilters()
+}
+```
+
+#### ExercisePlayerViewModel - Reproductor
+```swift
+class ExercisePlayerViewModel: ObservableObject {
+    @Published var isPlaying: Bool = false
+    @Published var progress: Double = 0.0
+    @Published var currentTime: TimeInterval = 0.0
+    @Published var isDragging: Bool = false
+    
+    func togglePlayback()               // Play/Pause
+    func skipForward(_ seconds: Double) // +15 segundos
+    func skipBackward(_ seconds: Double)// -15 segundos
+    func seekToProgress(_ progress: Double)
+}
+```
+
+### Extensiones y Utilidades
+
+#### Core Data Stack
+```swift
+class PersistenceController {
+    static let shared = PersistenceController()
+    
+    lazy var container: NSPersistentCloudKitContainer = {
+        // Configuración CloudKit automática
+        let container = NSPersistentCloudKitContainer(name: "DataModel")
+        container.persistentStoreDescriptions.first!.setOption(true as NSNumber, 
+                                                               forKey: NSPersistentHistoryTrackingKey)
+        return container
+    }()
+}
+```
+
+#### Computed Properties Útiles
+```swift
+// En Exercise
+var formattedDuration: String {
+    let minutes = Int(duration) / 60
+    let seconds = Int(duration) % 60
+    return String(format: "%d:%02d", minutes, seconds)
+}
+
+// En EmotionalData
+var isToday: Bool {
+    Calendar.current.isDate(date, inSameDayAs: Date())
+}
+
+var dayAbbreviation: String {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "E"
+    return String(formatter.string(from: date).prefix(1))
+}
+```
+
+---
+
+<div align="center">
+
+**Desarrollado con ❤️ por el equipo de MirrorMind**
+
+*MirrorMind - Tecnología al servicio del bienestar emocional*
+
+</div>
