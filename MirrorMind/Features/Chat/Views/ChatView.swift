@@ -3,11 +3,13 @@
 //  MirrorMind
 //
 //  Created by Caleb Martinez Cavazos on 21/08/25.
+//  Updated by Camera Integration Lead on 21/08/25.
 //
 
 import SwiftUI
 
 struct ChatView: View {
+    @StateObject private var cameraViewModel = CameraViewModel()
     @State private var isCameraOn = false
     @State private var isSmartbandConnected = false
     
@@ -51,15 +53,18 @@ struct ChatView: View {
                             .font(.system(size: 18, weight: .semibold))
                             .foregroundColor(Color.Text.primary)
                         
-                        // Preview de cámara
-                        CameraPreview(isCameraOn: isCameraOn)
+                        // Preview de cámara con ViewModel
+                        CameraPreview(cameraViewModel: cameraViewModel, isCameraOn: isCameraOn)
                     }
                     .padding(.horizontal, DesignConstants.Spacing.containerPadding)
                     
-                    // Botón toggle cámara
+                    // Botón toggle cámara con lógica de permisos
                     HStack {
                         Spacer()
                         CameraToggleButton(isCameraOn: $isCameraOn)
+                            .onTapGesture {
+                                handleCameraToggle()
+                            }
                         Spacer()
                     }
                     .padding(.horizontal, DesignConstants.Spacing.containerPadding)
@@ -72,17 +77,15 @@ struct ChatView: View {
                             isSmartbandConnected.toggle()
                         }) {
                             HStack(spacing: 8) {
-                                Image(systemName: isSmartbandConnected ? "checkmark.circle.fill" : "plus.circle.fill")
+                                Image(systemName: isSmartbandConnected ? "checkmark.circle.fill" : "circle")
                                     .font(.system(size: 16, weight: .medium))
-                                    .frame(width: 16, height: 16)
                                 
                                 Text(isSmartbandConnected ? "Smartband conectada" : "Conectar smartband")
                                     .font(.system(size: 16, weight: .medium))
                             }
                             .padding(.horizontal, 20)
                             .padding(.vertical, 12)
-                            .frame(height: 44)
-                            .background(isSmartbandConnected ? Color.green : Color.Primary.brand)
+                            .background(Color.Primary.brand)
                             .foregroundColor(.white)
                             .cornerRadius(DesignConstants.Radius.button)
                         }
@@ -91,21 +94,53 @@ struct ChatView: View {
                         Spacer()
                     }
                     .padding(.horizontal, DesignConstants.Spacing.containerPadding)
-
-                    // Datos biométricos
-                    BiometricDisplay(isConnected: isSmartbandConnected)
-                        .padding(.horizontal, DesignConstants.Spacing.containerPadding)
                     
-                    // Espaciado para el navbar
-                    Color.clear
+                    // Display biométrico
+                    VStack(spacing: 16) {
+                        Text("Datos biométricos")
+                            .font(.system(size: 18, weight: .semibold))
+                            .foregroundColor(Color.Text.primary)
+                        
+                        BiometricDisplay(isConnected: isSmartbandConnected)
+                    }
+                    .padding(.horizontal, DesignConstants.Spacing.containerPadding)
+                    
+                    // Espaciado para navbar flotante
+                    Spacer()
                         .frame(height: 100)
                 }
             }
         }
-        .background(Color.Primary.background)
+        .onAppear {
+            cameraViewModel.checkPermissionStatus()
+        }
+        .onChange(of: isCameraOn) {
+            if isCameraOn {
+                if cameraViewModel.permissionStatus == .notDetermined {
+                    Task {
+                        await cameraViewModel.requestCameraPermission()
+                    }
+                }
+                cameraViewModel.startSession()
+            } else {
+                cameraViewModel.stopSession()
+            }
+        }
+    }
+    
+    // MARK: - Private Methods
+    private func handleCameraToggle() {
+        if cameraViewModel.permissionStatus == .denied {
+            // TODO: Mostrar alerta para ir a configuración
+            print("Permisos denegados - dirigir a configuración")
+            return
+        }
+        
+        isCameraOn.toggle()
     }
 }
 
 #Preview {
     ChatView()
+        .background(Color.Primary.background)
 }
