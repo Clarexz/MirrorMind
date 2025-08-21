@@ -2,8 +2,9 @@
 //  CategoryView.swift
 //  MirrorMind
 //
-//  Created by Caleb Martinez Cavazos on 20/08/25.
+//  Created by Exercise Player Lead on 20/08/25.
 //
+
 import SwiftUI
 import Combine
 
@@ -26,18 +27,25 @@ struct CategoryView: View {
                 ScrollView {
                     LazyVStack(spacing: 16) {
                         ForEach(viewModel.exercisesForCategory(category.categoryType)) { exercise in
-                            ExerciseListCard(
-                                exercise: exercise,
-                                categoryColor: category.color,
-                                isFavorite: viewModel.isFavorite(exercise),
-                                onTap: {
-                                    // TODO: Navegación a reproductor en próximo bloque
-                                    print("Reproducir: \(exercise.name)")
-                                },
-                                onFavoriteToggle: {
-                                    viewModel.toggleFavorite(exercise)
-                                }
-                            )
+                            NavigationLink(
+                                destination: ExercisePlayerView(
+                                    exercise: exercise,
+                                    categoryColor: category.color
+                                )
+                            ) {
+                                ExerciseListCard(
+                                    exercise: exercise,
+                                    categoryColor: category.color,
+                                    isFavorite: viewModel.isFavorite(exercise),
+                                    onTap: {
+                                        // Navegación manejada por NavigationLink
+                                    },
+                                    onFavoriteToggle: {
+                                        viewModel.toggleFavorite(exercise)
+                                    }
+                                )
+                            }
+                            .buttonStyle(PlainButtonStyle())
                         }
                     }
                     .padding(.horizontal, 20)
@@ -105,66 +113,63 @@ struct ExerciseListCard: View {
     let onFavoriteToggle: () -> Void
     
     var body: some View {
-        Button(action: onTap) {
-            HStack(spacing: 16) {
-                // Thumbnail
-                ZStack {
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(categoryColor.opacity(0.2))
-                        .frame(width: 80, height: 60)
-                    
-                    Image(systemName: "play.fill")
-                        .font(.system(size: 20, weight: .medium))
-                        .foregroundColor(categoryColor)
-                }
+        HStack(spacing: 16) {
+            // Thumbnail con formato 16:9
+            ZStack {
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(categoryColor.opacity(0.2))
+                    .frame(width: 60, height: 80) // 16:9 ratio (80:45)
                 
-                // Información del ejercicio
-                VStack(alignment: .leading, spacing: 6) {
-                    Text(exercise.name)
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(Color.Text.primary)
-                        .multilineTextAlignment(.leading)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    Text(exercise.description)
-                        .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(Color.Text.secondary)
-                        .lineLimit(2)
-                        .multilineTextAlignment(.leading)
-                    
-                    // Duración
-                    HStack(spacing: 4) {
-                        Image(systemName: "clock")
-                            .font(.system(size: 12))
-                            .foregroundColor(Color.Text.secondary)
-                        
-                        Text(exercise.formattedDuration)
-                            .font(.system(size: 12, weight: .medium))
-                            .foregroundColor(Color.Text.secondary)
-                    }
-                }
-                
-                Spacer()
-                
-                // Botón de favorito
-                Button(action: onFavoriteToggle) {
-                    Image(systemName: isFavorite ? "heart.fill" : "heart")
-                        .font(.system(size: 18, weight: .medium))
-                        .foregroundColor(isFavorite ? .red : Color.Text.secondary)
-                }
-                .buttonStyle(PlainButtonStyle())
+                Image(systemName: "play.fill")
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundColor(categoryColor)
             }
-            .padding(16)
-            .background(Color.white)
-            .cornerRadius(DesignConstants.Radius.card)
-            .shadow(
-                color: DesignConstants.Shadow.card,
-                radius: DesignConstants.Shadow.cardRadius,
-                x: DesignConstants.Shadow.cardOffset.width,
-                y: DesignConstants.Shadow.cardOffset.height
-            )
+            
+            // Información del ejercicio
+            VStack(alignment: .leading, spacing: 6) {
+                Text(exercise.name)
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(Color.Text.primary)
+                    .multilineTextAlignment(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Text(exercise.description)
+                    .font(.system(size: 14, weight: .regular))
+                    .foregroundColor(Color.Text.secondary)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.leading)
+                
+                // Duración
+                HStack(spacing: 4) {
+                    Image(systemName: "clock")
+                        .font(.system(size: 12))
+                        .foregroundColor(Color.Text.secondary)
+                    
+                    Text(exercise.formattedDuration)
+                        .font(.system(size: 12, weight: .medium))
+                        .foregroundColor(Color.Text.secondary)
+                }
+            }
+            
+            Spacer()
+            
+            // Botón de favorito
+            Button(action: onFavoriteToggle) {
+                Image(systemName: isFavorite ? "heart.fill" : "heart")
+                    .font(.system(size: 18, weight: .medium))
+                    .foregroundColor(isFavorite ? .red : Color.Text.secondary)
+            }
+            .buttonStyle(PlainButtonStyle())
         }
-        .buttonStyle(PlainButtonStyle())
+        .padding(16)
+        .background(Color.white)
+        .cornerRadius(DesignConstants.Radius.card)
+        .shadow(
+            color: DesignConstants.Shadow.card,
+            radius: DesignConstants.Shadow.cardRadius,
+            x: DesignConstants.Shadow.cardOffset.width,
+            y: DesignConstants.Shadow.cardOffset.height
+        )
     }
 }
 

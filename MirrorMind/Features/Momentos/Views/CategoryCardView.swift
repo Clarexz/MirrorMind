@@ -12,72 +12,59 @@ struct CategoryCardView: View {
     var isFullWidth: Bool = false
     
     var body: some View {
-        Button(action: {}) {
-            Group {
-                if isFullWidth {
-                    // Layout horizontal para la quinta tarjeta (centrado)
-                    HStack(spacing: 16) {
-                        // Icono a la izquierda
-                        Image(systemName: category.icon)
-                            .font(.system(size: 32, weight: .medium))
+        Group {
+            if isFullWidth {
+                // Layout horizontal para la quinta tarjeta (centrado)
+                HStack(spacing: 16) {
+                    // Icono a la izquierda
+                    Image(systemName: category.icon)
+                        .font(.system(size: 32, weight: .medium))
+                        .foregroundColor(.white)
+                    
+                    // Texto a la derecha
+                    VStack(spacing: 2) {
+                        Text(category.name)
+                            .font(.system(size: 14, weight: .semibold))
                             .foregroundColor(.white)
                         
-                        // Texto a la derecha
-                        VStack(spacing: 2) {
-                            Text(category.name)
-                                .font(.system(size: 14, weight: .semibold))
-                                .foregroundColor(.white)
-                            
-                            Text(category.subtitle)
-                                .font(.system(size: 14, weight: .semibold))
-                                .foregroundColor(.white)
-                        }
+                        Text(category.subtitle)
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundColor(.white)
                     }
-                } else {
-                    // Layout vertical para las primeras 4 tarjetas
-                    VStack(spacing: 12) {
-                        // Icono
-                        Image(systemName: category.icon)
-                            .font(.system(size: 32, weight: .medium))
+                }
+            } else {
+                // Layout vertical para las primeras 4 tarjetas
+                VStack(spacing: 12) {
+                    // Icono
+                    Image(systemName: category.icon)
+                        .font(.system(size: 32, weight: .medium))
+                        .foregroundColor(.white)
+                    
+                    // Texto
+                    VStack(spacing: 2) {
+                        Text(category.name)
+                            .font(.system(size: 14, weight: .semibold))
                             .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
                         
-                        // Texto
-                        VStack(spacing: 2) {
-                            Text(category.name)
-                                .font(.system(size: 14, weight: .semibold))
-                                .foregroundColor(.white)
-                                .multilineTextAlignment(.center)
-                            
-                            Text(category.subtitle)
-                                .font(.system(size: 14, weight: .semibold))
-                                .foregroundColor(.white)
-                                .multilineTextAlignment(.center)
-                        }
+                        Text(category.subtitle)
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
                     }
                 }
             }
-            .frame(maxWidth: .infinity)
-            .frame(height: 120) // Misma altura para todas las tarjetas
-            .background(category.color)
-            .cornerRadius(DesignConstants.Radius.card)
-            .shadow(
-                color: DesignConstants.Shadow.card,
-                radius: DesignConstants.Shadow.cardRadius,
-                x: DesignConstants.Shadow.cardOffset.width,
-                y: DesignConstants.Shadow.cardOffset.height
-            )
         }
-        .buttonStyle(CategoryButtonStyle())
-    }
-}
-
-// MARK: - Button Style
-struct CategoryButtonStyle: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
-            .opacity(configuration.isPressed ? 0.8 : 1.0)
-            .animation(.easeInOut(duration: 0.1), value: configuration.isPressed)
+        .frame(maxWidth: .infinity)
+        .frame(height: 120)
+        .background(category.color)
+        .cornerRadius(DesignConstants.Radius.card)
+        .shadow(
+            color: DesignConstants.Shadow.card,
+            radius: DesignConstants.Shadow.cardRadius,
+            x: DesignConstants.Shadow.cardOffset.width,
+            y: DesignConstants.Shadow.cardOffset.height
+        )
     }
 }
 
