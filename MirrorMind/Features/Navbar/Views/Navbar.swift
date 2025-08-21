@@ -24,7 +24,7 @@ struct Navbar: View {
                 case .momentos:
                     MomentosScreen()
                 case .chat:
-                    TemporaryChatView()
+                    ChatScreen()
                 case .perfil:
                     TemporaryPerfilView()
                 }
@@ -44,30 +44,6 @@ struct Navbar: View {
 
 #Preview {
     Navbar()
-}
-
-struct TemporaryChatView: View {
-    var body: some View {
-        ZStack {
-            Color.Primary.background
-                .ignoresSafeArea(.all)
-            
-            VStack(spacing: 20) {
-                Image(systemName: "message.fill")
-                    .font(.system(size: 60))
-                    .foregroundColor(Color.Primary.brand)
-                
-                Text("Vista Chat")
-                    .font(.system(size: 24, weight: .bold))
-                    .foregroundColor(Color.Text.primary)
-                
-                Text("Aquí irá el chat\ncon Olivia IA")
-                    .font(.system(size: 16))
-                    .foregroundColor(Color.Text.secondary)
-                    .multilineTextAlignment(.center)
-            }
-        }
-    }
 }
 
 struct TemporaryPerfilView: View {
